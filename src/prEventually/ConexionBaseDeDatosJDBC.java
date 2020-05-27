@@ -32,8 +32,10 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 	
 	public int registrarNuevoUsuario(Usuario u) {
 		int userID = 0;
-		String insertBody = "INSERT INTO USERS (user, password, mail ) VALUES (?, ?, ?)";
+		String insertBody = "INSERT INTO users (user, password, mail ) VALUES (?, ?, ?)";
 		try {
+			
+			System.out.println(insertBody);
 			
 			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, u.getUser());
@@ -50,6 +52,8 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		}
 		return userID;
 	}
+	
+	
 	
 	
 	

@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 
 
-public class CntrlRegistroUsuario implements ActionListener{
+	public class CntrlRegistroUsuario implements ActionListener{
 	
 	ConexionConBaseDeDatos conexionBD;
 	InterfazRegistroUsuario nuPanel;

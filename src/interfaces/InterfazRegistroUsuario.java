@@ -1,6 +1,7 @@
 package interfaces;
 
 import controladores.CntrlRegistroUsuario;
+import controladores.CntrlVolverRegistro;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -14,6 +15,7 @@ import javax.swing.JTextField;
 public class InterfazRegistroUsuario extends JPanel{
 	
 	public static String BT_NEW_USER_ACCION_COMMAND = "BT_NEW_USER_ACCION_COMMAND";
+	public static String BT_VOLVER_REGISTRO_ACCION_COMMAND = "BT_VOLVER_REGISTRO_ACCION_COMMAND";
 	
 	private JButton bRegistro;
 	private JButton bVolver;
@@ -58,7 +60,7 @@ public class InterfazRegistroUsuario extends JPanel{
 		botones.add(bVolver);
 		
 		JPanel campos = new JPanel();
-		campos.setLayout(new GridLayout(4, 1));
+		campos.setLayout(new GridLayout(3, 1));
 		campos.add(tfUser);
 		campos.add(tfPassword);
 //		campos.add(tfPassword2);
@@ -89,6 +91,11 @@ public class InterfazRegistroUsuario extends JPanel{
 	public void controlador(CntrlRegistroUsuario c) {
 		bRegistro.addActionListener(c);
 		bRegistro.setActionCommand(BT_NEW_USER_ACCION_COMMAND);
+	}
+	
+	public void controladorVolver(CntrlVolverRegistro c) {
+		bVolver.addActionListener(c);
+		bVolver.setActionCommand(BT_VOLVER_REGISTRO_ACCION_COMMAND);
 	}
 	
 	
