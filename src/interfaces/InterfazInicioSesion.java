@@ -1,13 +1,18 @@
 package interfaces;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import pruebas.pruebaRegistro;
 
 
 public class InterfazInicioSesion extends JPanel{
@@ -50,5 +55,12 @@ public class InterfazInicioSesion extends JPanel{
 		add(botones, BorderLayout.CENTER);
 		add(campos, BorderLayout.NORTH);
 	
+		bCrearCuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel cardParent = (JPanel) InterfazInicioSesion.this.getParent();
+				CardLayout cl = (CardLayout)(cardParent.getLayout());
+		        cl.show(cardParent, pruebaRegistro.PRIMERPANEL);
+			}
+		});
 	}
 }

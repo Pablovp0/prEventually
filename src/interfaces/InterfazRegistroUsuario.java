@@ -1,11 +1,15 @@
 package interfaces;
 
 import controladores.CntrlRegistroUsuario;
-import controladores.CntrlVolverRegistro;
+//import controladores.CntrlVolverRegistro;
+import pruebas.pruebaRegistro;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -70,6 +74,14 @@ public class InterfazRegistroUsuario extends JPanel{
 		add(botones, BorderLayout.CENTER);
 		add(campos, BorderLayout.NORTH);
 		
+		bVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel cardParent = (JPanel) InterfazRegistroUsuario.this.getParent();
+				CardLayout cl = (CardLayout)(cardParent.getLayout());
+		        cl.show(cardParent, pruebaRegistro.SEGUNDOPANEL);
+			}
+		});
+		
 	}
 	
 	public JTextField getUser() {
@@ -88,15 +100,10 @@ public class InterfazRegistroUsuario extends JPanel{
 		return tfMail;
 	}
 	
+	
 	public void controlador(CntrlRegistroUsuario c) {
 		bRegistro.addActionListener(c);
 		bRegistro.setActionCommand(BT_NEW_USER_ACCION_COMMAND);
 	}
-	
-	public void controladorVolver(CntrlVolverRegistro c) {
-		bVolver.addActionListener(c);
-		bVolver.setActionCommand(BT_VOLVER_REGISTRO_ACCION_COMMAND);
-	}
-	
 	
 }
