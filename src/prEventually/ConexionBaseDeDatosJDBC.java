@@ -53,7 +53,22 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return userID;
 	}
 	
-	
+	public boolean iniciarSesion(String usuario, String contrasena) {
+		boolean ok = false;
+		String insertBody = "SELECT * FROM users where user=? and password=?";
+		try {
+			PreparedStatement estatamentoPreparado = conn.prepareStatement(insertBody);
+			estatamentoPreparado.setString(1, usuario);
+			estatamentoPreparado.setString(2, contrasena);
+			ResultSet rs = estatamentoPreparado.executeQuery();
+			if(rs.next()) {
+				ok = true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return ok;
+	}
 	
 	
 	

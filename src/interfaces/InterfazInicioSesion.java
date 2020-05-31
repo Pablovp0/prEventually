@@ -12,11 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import pruebas.pruebaRegistro;
+import controladores.CntrlInicioSesion;
+import controladores.CntrlRegistroUsuario;
+import pruebas.PRUEBATOTAL;
 
+public class InterfazInicioSesion extends JPanel {
 
-public class InterfazInicioSesion extends JPanel{
-	
+	public static String BT_INICIAR_SESION_ACCION_COMMAND = "BT_INICIAR_SESION_ACCION_COMMAND";
+
 	private JButton bCrearCuenta;
 	private JButton bLogin;
 	private JTextField tfUser;
@@ -24,13 +27,12 @@ public class InterfazInicioSesion extends JPanel{
 	private TextPrompt placeholderUser;
 	private TextPrompt placeholderPassword;
 
-	public InterfazInicioSesion(){
-		
+	public InterfazInicioSesion() {
+
 		bCrearCuenta = new JButton("Crear cuenta.");
 		bLogin = new JButton("Iniciar sesión.");
 		tfUser = new JTextField(20);
 		tfPassword = new JPasswordField(20);
-
 
 		placeholderUser = new TextPrompt("Usuario", tfUser);
 		placeholderPassword = new TextPrompt("Contraseña", tfPassword);
@@ -38,29 +40,44 @@ public class InterfazInicioSesion extends JPanel{
 		placeholderUser.changeStyle(Font.ITALIC);
 		placeholderPassword.changeAlpha(0.75f);
 		placeholderPassword.changeStyle(Font.ITALIC);
-		
+
 		setLayout(new BorderLayout());
-		
+
 		JPanel botones = new JPanel();
 
 		botones.setLayout(new GridLayout(1, 2));
 		botones.add(bCrearCuenta);
 		botones.add(bLogin);
-		
+
 		JPanel campos = new JPanel();
 		campos.setLayout(new GridLayout(2, 1));
 		campos.add(tfUser);
 		campos.add(tfPassword);
-		
+
 		add(botones, BorderLayout.CENTER);
 		add(campos, BorderLayout.NORTH);
-	
+
 		bCrearCuenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanel cardParent = (JPanel) InterfazInicioSesion.this.getParent();
-				CardLayout cl = (CardLayout)(cardParent.getLayout());
-		        cl.show(cardParent, pruebaRegistro.PRIMERPANEL);
+				CardLayout cl = (CardLayout) (cardParent.getLayout());
+				cl.show(cardParent, PRUEBATOTAL.PRIMERPANEL);
 			}
 		});
+
 	}
+
+	public JTextField getUsuario() {
+		return tfUser;
+	}
+
+	public JTextField getContra() {
+		return tfPassword;
+	}
+	
+	public void controlador (CntrlInicioSesion c) {
+		bLogin.addActionListener(c);
+		bLogin.setActionCommand(BT_INICIAR_SESION_ACCION_COMMAND);
+	}
+	
 }

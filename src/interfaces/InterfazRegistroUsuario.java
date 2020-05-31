@@ -2,7 +2,7 @@ package interfaces;
 
 import controladores.CntrlRegistroUsuario;
 //import controladores.CntrlVolverRegistro;
-import pruebas.pruebaRegistro;
+import pruebas.PRUEBATOTAL;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -78,7 +78,7 @@ public class InterfazRegistroUsuario extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				JPanel cardParent = (JPanel) InterfazRegistroUsuario.this.getParent();
 				CardLayout cl = (CardLayout)(cardParent.getLayout());
-		        cl.show(cardParent, pruebaRegistro.SEGUNDOPANEL);
+		        cl.show(cardParent, PRUEBATOTAL.SEGUNDOPANEL);
 			}
 		});
 		
