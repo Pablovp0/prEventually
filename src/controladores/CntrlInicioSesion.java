@@ -28,7 +28,6 @@ public class CntrlInicioSesion implements ActionListener {
 		
 		if(conexionBD.iniciarSesion(usuario, contrasena)) {
 			
-			System.out.println("iniciar sesion funciona");
 			
 			JPanel cardParent = (JPanel) iniPanel.getParent();
 			CardLayout ccl = (CardLayout) (cardParent.getLayout());

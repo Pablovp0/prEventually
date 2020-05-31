@@ -8,31 +8,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import controladores.CntrlEliminarCuenta;
 import controladores.CntrlInicioSesion;
-import controladores.CntrlRegistroUsuario;
 import pruebas.PRUEBATOTAL;
 
-public class InterfazInicioSesion extends JPanel {
-
+public class InterfazEliminarCuenta extends JPanel{
+	
 	public static String BT_INICIAR_SESION_ACCION_COMMAND = "BT_INICIAR_SESION_ACCION_COMMAND";
 
-	private JButton bCrearCuenta;
-	private JButton bLogin;
+	private JButton bEliminarCuenta;
+	private JButton bVolver;
 	private JTextField tfUser;
 	private JPasswordField tfPassword;
 	private TextPrompt placeholderUser;
 	private TextPrompt placeholderPassword;
+	private JLabel lPregunta;
 
-	public InterfazInicioSesion() {
+	public InterfazEliminarCuenta() {
 
-		bCrearCuenta = new JButton("Crear cuenta.");
-		bLogin = new JButton("Iniciar sesión.");
+		bEliminarCuenta = new JButton("Eliminar cuenta");
+		bVolver = new JButton("Volver");
 		tfUser = new JTextField(20);
 		tfPassword = new JPasswordField(20);
+		lPregunta = new JLabel("Rellena tus datos y pulsa en 'Eliminar cuenta' para borrar tu cuenta.");
 
 		placeholderUser = new TextPrompt("Usuario", tfUser);
 		placeholderPassword = new TextPrompt("Contraseña", tfPassword);
@@ -46,22 +49,23 @@ public class InterfazInicioSesion extends JPanel {
 		JPanel botones = new JPanel();
 
 		botones.setLayout(new GridLayout(1, 2));
-		botones.add(bCrearCuenta);
-		botones.add(bLogin);
+		botones.add(bEliminarCuenta);
+		botones.add(bVolver);
 
 		JPanel campos = new JPanel();
-		campos.setLayout(new GridLayout(2, 1));
+		campos.setLayout(new GridLayout(3, 1));
+		campos.add(lPregunta);
 		campos.add(tfUser);
 		campos.add(tfPassword);
 
 		add(botones, BorderLayout.SOUTH);
 		add(campos, BorderLayout.CENTER);
 
-		bCrearCuenta.addActionListener(new ActionListener() {
+		bVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanel cardParent = (JPanel) InterfazInicioSesion.this.getParent();
+				JPanel cardParent = (JPanel) InterfazEliminarCuenta.this.getParent();
 				CardLayout cl = (CardLayout) (cardParent.getLayout());
-				cl.show(cardParent, PRUEBATOTAL.PRIMERPANEL);
+				cl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
 			}
 		});
 
@@ -75,9 +79,9 @@ public class InterfazInicioSesion extends JPanel {
 		return tfPassword;
 	}
 	
-	public void controlador (CntrlInicioSesion c) {
-		bLogin.addActionListener(c);
-		bLogin.setActionCommand(BT_INICIAR_SESION_ACCION_COMMAND);
+	public void controlador (CntrlEliminarCuenta c) {
+		bEliminarCuenta.addActionListener(c);
+		bEliminarCuenta.setActionCommand(BT_INICIAR_SESION_ACCION_COMMAND);
 	}
 	
 }

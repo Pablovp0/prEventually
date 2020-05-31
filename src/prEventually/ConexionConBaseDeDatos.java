@@ -12,4 +12,5 @@ public abstract class ConexionConBaseDeDatos {
 	
 	public abstract int registrarNuevoUsuario(Usuario u);
 	public abstract boolean iniciarSesion(String usuario,String contrasena);
+	public abstract void eliminarCuenta(String usuario);
 }

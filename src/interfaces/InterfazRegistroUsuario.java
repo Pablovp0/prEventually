@@ -71,8 +71,8 @@ public class InterfazRegistroUsuario extends JPanel{
 		campos.add(tfMail);
 		
 		
-		add(botones, BorderLayout.CENTER);
-		add(campos, BorderLayout.NORTH);
+		add(botones, BorderLayout.SOUTH);
+		add(campos, BorderLayout.CENTER);
 		
 		bVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 	
 	private Connection conn;
@@ -70,6 +71,20 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return ok;
 	}
 	
+	public void eliminarCuenta(String nUsuario) {
+		String user = nUsuario;
+		String deleteBody = "DELETE FROM users WHERE (user = ?)";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+			preparedStatement.setString(1, user);
+			int res = preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+		
+	}
+
 	
 	
 }
