@@ -36,7 +36,6 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		String insertBody = "INSERT INTO users (user, password, mail ) VALUES (?, ?, ?)";
 		try {
 			
-			System.out.println(insertBody);
 			
 			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, u.getUser());
@@ -52,6 +51,29 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 			e.printStackTrace();
 		}
 		return userID;
+	}
+	
+	public int crearEvento(Evento e) {
+		int eventID = 0;
+		String insertBody = "INSERT INTO eventos (nombre, fecha, lugar, organizador) VALUES (?, ?, ?, ?)";
+		try {
+			
+			
+			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, e.getNombre());
+			preparedStatement.setString(2, e.getFecha());
+			preparedStatement.setString(3, e.getLugar());
+			preparedStatement.setString(4, e.getOrganizador());
+			
+			int res = preparedStatement.executeUpdate();
+			ResultSet rs = preparedStatement.getGeneratedKeys();
+			while(rs.next()) {
+				eventID = rs.getInt(1);
+			}
+		}catch(SQLException e1) {
+			e1.printStackTrace();
+		}
+		return eventID;
 	}
 	
 	public boolean iniciarSesion(String usuario, String contrasena) {

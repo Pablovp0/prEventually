@@ -10,13 +10,20 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import controladores.CntrlBotonCrearEvento;
+import controladores.CntrlEliminarCuenta;
 import controladores.CntrlRegistroUsuario;
 import pruebas.PRUEBATOTAL;
 
 public class InterfazPrincipal extends JPanel {
 	
+	private JButton bCrearEvento = new JButton("Crear evento");
+	private JButton bEliminar = new JButton("Eliminar cuenta");
+	private JButton bCerrarSesion = new JButton("Cerrar Sesion");
+	private JPanel panelEvento = new JPanel();
+	private JPanel panelPerfil = new JPanel();
 	
-
+	
 	public InterfazPrincipal() {
 		JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -31,21 +38,20 @@ public class InterfazPrincipal extends JPanel {
 
 	public JPanel crearPanelEvento() {
 
-		JPanel panelEvento = new JPanel();
 		setLayout(new BorderLayout());
-		JButton boton1 = new JButton("botonEvento");
-		panelEvento.add(boton1);
-
+		panelEvento.add(bCrearEvento);
 		return panelEvento;
+		
+		
 	}
 
 	public JPanel crearPanelPerfil() {
 
-		JPanel panelPerfil = new JPanel();
+		
 		setLayout(new BorderLayout());
-		JButton bEliminar = new JButton("Eliminar cuenta");
+		
 		panelPerfil.add(bEliminar);
-		JButton bCerrarSesion = new JButton("Cerrar Sesion");
+		
 		panelPerfil.add(bCerrarSesion);
 		
 		bCerrarSesion.addActionListener(new ActionListener() {
@@ -66,6 +72,10 @@ public class InterfazPrincipal extends JPanel {
 		
 		
 		return panelPerfil;
+	}
+	
+	public void controladorBotonCrearEvento (CntrlBotonCrearEvento c) {
+		bCrearEvento.addActionListener(c);
 	}
 	
 	
