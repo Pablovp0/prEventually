@@ -59,6 +59,9 @@ public class InterfazInicioSesion extends JPanel {
 
 		bCrearCuenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				tfUser.setText(null);
+				tfPassword.setText(null);
+				
 				JPanel cardParent = (JPanel) InterfazInicioSesion.this.getParent();
 				CardLayout cl = (CardLayout) (cardParent.getLayout());
 				cl.show(cardParent, PRUEBATOTAL.PRIMERPANEL);

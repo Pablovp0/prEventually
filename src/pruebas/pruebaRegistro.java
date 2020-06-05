@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controladores.CntrlRegistroUsuario;
-import prEventually.*;
 import interfaces.*;
+import prEventually.*;
 
 public class pruebaRegistro {
 	

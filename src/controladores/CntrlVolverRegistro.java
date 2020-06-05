@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-
 import interfaces.InterfazInicioSesion;
 import interfaces.InterfazRegistroUsuario;
 

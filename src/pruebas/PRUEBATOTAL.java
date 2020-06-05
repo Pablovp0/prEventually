@@ -11,8 +11,8 @@ import controladores.CntrlEliminarCuenta;
 import controladores.CntrlInicioSesion;
 import controladores.CntrlRegistroUsuario;
 import controladores.CntrlVolverCrearEvento;
-import prEventually.*;
 import interfaces.*;
+import prEventually.*;
 
 public class PRUEBATOTAL {
 	
@@ -60,9 +60,6 @@ public class PRUEBATOTAL {
 		i.controlador(cReg);
 		in.controlador(cIni);
 		iec.controlador(cEc);
-		
-		
-		
 	}
 
 }

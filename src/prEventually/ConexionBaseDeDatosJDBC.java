@@ -92,6 +92,22 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		}
 		return ok;
 	}
+	public boolean participarEvento(String usuario, String evento) {
+		boolean ok = false;
+			String insertBody = "SELECT * FROM users where user=? and password=?";
+			try {
+				PreparedStatement estatamentoPreparado = conn.prepareStatement(insertBody);
+				estatamentoPreparado.setString(1, usuario);
+				estatamentoPreparado.setString(2, evento);
+				ResultSet rs = estatamentoPreparado.executeQuery();
+				if(rs.next()) {
+					ok = true;
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+		}
+		return ok;
+	}
 	
 	public void eliminarCuenta(String nUsuario) {
 		String user = nUsuario;

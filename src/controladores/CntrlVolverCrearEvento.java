@@ -18,6 +18,10 @@ public class CntrlVolverCrearEvento implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		icePanel.getNombre().setText(null);
+		icePanel.getFecha().setText(null);
+		icePanel.getLugar().setText(null);
+		icePanel.getOrganizador().setText(null);
 		
 		JPanel cardParent = (JPanel) icePanel.getParent();
 		CardLayout ccl = (CardLayout) (cardParent.getLayout());

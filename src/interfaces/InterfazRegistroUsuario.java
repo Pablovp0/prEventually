@@ -1,7 +1,6 @@
 package interfaces;
 
 import controladores.CntrlRegistroUsuario;
-//import controladores.CntrlVolverRegistro;
 import pruebas.PRUEBATOTAL;
 
 import java.awt.BorderLayout;
@@ -76,11 +75,16 @@ public class InterfazRegistroUsuario extends JPanel{
 		
 		bVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				tfUser.setText(null);
+				tfPassword.setText(null);
+				tfMail.setText(null);
+				
 				JPanel cardParent = (JPanel) InterfazRegistroUsuario.this.getParent();
 				CardLayout cl = (CardLayout)(cardParent.getLayout());
 		        cl.show(cardParent, PRUEBATOTAL.SEGUNDOPANEL);
 			}
 		});
+		
 		
 	}
 	
