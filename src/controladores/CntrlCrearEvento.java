@@ -37,10 +37,9 @@ public class CntrlCrearEvento implements ActionListener{
 				cePanel.getNombre().getText(),
 				cePanel.getFecha().getText(),
 				cePanel.getLugar().getText(),
-				cePanel.getOrganizador().getText());
+				CntrlInicioSesion.getSesion().getNusuario());
 		
-		if(ev.getOrganizador()==null || ev.getOrganizador().length()==0 ||
-				ev.getFecha() == null || ev.getFecha().length()==0 ||
+		if(ev.getFecha() == null || ev.getFecha().length()==0 ||
 				ev.getLugar() == null || ev.getLugar().length()==0 ||
 				ev.getNombre()==null || ev.getNombre().length()==0) {
 			popUp(cePanel, "Campo vacio");
@@ -49,6 +48,9 @@ public class CntrlCrearEvento implements ActionListener{
 			int eventoID = conexionBD.crearEvento(ev);
 			ev.setId(eventoID);
 			popUp(cePanel, "Evento creado");
+			cePanel.getNombre().setText(null);
+			cePanel.getFecha().setText(null);
+			cePanel.getLugar().setText(null);
 			
 			//mismo efecto que volver
 			JPanel cardParent = (JPanel) cePanel.getParent();

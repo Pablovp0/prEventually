@@ -58,7 +58,7 @@ public class InterfazPrincipal extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				JPanel cardParent = (JPanel) InterfazPrincipal.this.getParent();
 				CardLayout cl = (CardLayout)(cardParent.getLayout());
-		        cl.show(cardParent, PRUEBATOTAL.SEGUNDOPANEL);
+		        cl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
 			}
 		});
 		

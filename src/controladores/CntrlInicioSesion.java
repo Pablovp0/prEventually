@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import interfaces.InterfazInicioSesion;
 import prEventually.ConexionConBaseDeDatos;
+import prEventually.Sesion;
 import prEventually.Usuario;
 import pruebas.PRUEBATOTAL;
 
@@ -16,6 +17,7 @@ public class CntrlInicioSesion implements ActionListener {
 
 	ConexionConBaseDeDatos conexionBD;
 	InterfazInicioSesion iniPanel;
+	static Sesion s;
 
 	public CntrlInicioSesion(ConexionConBaseDeDatos connbd, InterfazInicioSesion ini) {
 		conexionBD = connbd;
@@ -39,15 +41,24 @@ public class CntrlInicioSesion implements ActionListener {
 //			popUpError(cardParent, "Campos en blanco");
 //			
 //		}else
-			if(conexionBD.iniciarSesion(usuario, contrasena)) {
-			CardLayout ccl = (CardLayout) (cardParent.getLayout());
-			ccl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
+		
+			if(conexionBD.iniciarSesion(usuario, contrasena) != null) {
+				
+				s = new Sesion(usuario, contrasena);
+				
+				CardLayout ccl = (CardLayout) (cardParent.getLayout());
+				ccl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
 			
-			iniPanel.getUsuario().setText(null);
-			iniPanel.getContra().setText(null);
+				iniPanel.getUsuario().setText(null);
+				iniPanel.getContra().setText(null);
+				
 		} else {
-			popUp(cardParent, "Usuario o contrasena incorrecto");
+			popUp(cardParent, "Usuario o contrasena incorrectos");
 			
 		}	
+	}
+	
+	public static Sesion getSesion() {
+		return s;
 	}
 }

@@ -1,5 +1,6 @@
 package controladores;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,6 +9,7 @@ import javax.swing.JPanel;
 
 import interfaces.InterfazRegistroUsuario;
 import prEventually.*;
+import pruebas.PRUEBATOTAL;
 
 
 
@@ -47,6 +49,11 @@ import prEventually.*;
 			int usuarioID = conexionBD.registrarNuevoUsuario(u);
 			u.setIdentificador(usuarioID);
 			popUpError(cardParent, "Nuevo usuario registrado");
+			nuPanel.getUser().setText(null);
+			nuPanel.getMail().setText(null);
+			nuPanel.getPassword().setText(null);
+			CardLayout ccl = (CardLayout) (cardParent.getLayout());
+			ccl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
 		}
 
 	}

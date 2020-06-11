@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 
 import controladores.CntrlCrearEvento;
 import controladores.CntrlInicioSesion;
-import controladores.CntrlVolverCrearEvento;
 import pruebas.PRUEBATOTAL;
 
 public class InterfazCrearEvento extends JPanel{
@@ -24,11 +23,9 @@ public class InterfazCrearEvento extends JPanel{
 	private JTextField tfNombre;
 	private JTextField tfFecha;
 	private JTextField tfLugar;
-	private JTextField tfOrganizador;
 	private TextPrompt phNombre;
 	private TextPrompt phFecha;
 	private TextPrompt phLugar;
-	private TextPrompt phOrganizador;
 	
 
 	public InterfazCrearEvento() {
@@ -38,7 +35,6 @@ public class InterfazCrearEvento extends JPanel{
 		tfNombre = new JTextField(20);
 		tfFecha = new JTextField(20);
 		tfLugar = new JTextField(20);
-		tfOrganizador = new JTextField(20);
 
 		phNombre = new TextPrompt("Nombre del evento", tfNombre);
 		phNombre.changeAlpha(0.75f);
@@ -49,9 +45,6 @@ public class InterfazCrearEvento extends JPanel{
 		phLugar = new TextPrompt("Lugar del evento", tfLugar);
 		phLugar.changeAlpha(0.75f);
 		phLugar.changeStyle(Font.ITALIC);
-		phOrganizador = new TextPrompt("Creado por...", tfOrganizador);
-		phOrganizador.changeAlpha(0.75f);
-		phOrganizador.changeStyle(Font.ITALIC);
 
 		setLayout(new BorderLayout());
 
@@ -62,17 +55,27 @@ public class InterfazCrearEvento extends JPanel{
 		botones.add(bVolver);
 
 		JPanel campos = new JPanel();
-		campos.setLayout(new GridLayout(4, 1));
+		campos.setLayout(new GridLayout(3, 1));
 		campos.add(tfNombre);
 		campos.add(tfFecha);
 		campos.add(tfLugar);
-		campos.add(tfOrganizador);
+
 
 		add(botones, BorderLayout.SOUTH);
 		add(campos, BorderLayout.CENTER);
-
 		
-
+		bVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tfNombre.setText(null);
+				tfFecha.setText(null);
+				tfLugar.setText(null);
+				
+				JPanel cardParent = (JPanel) InterfazCrearEvento.this.getParent();
+				CardLayout ccl = (CardLayout) (cardParent.getLayout());
+				ccl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
+			}
+		});
+		
 	}
 
 	public JTextField getNombre() {
@@ -86,14 +89,7 @@ public class InterfazCrearEvento extends JPanel{
 	public JTextField getLugar() {
 		return tfLugar;
 	}
-
-	public JTextField getOrganizador() {
-		return tfOrganizador;
-	}
 	
-	public void controladorVolver (CntrlVolverCrearEvento c) {
-		bVolver.addActionListener(c);
-	}
 	
 	public void controladorCrear (CntrlCrearEvento c) {
 		bCrear.addActionListener(c);

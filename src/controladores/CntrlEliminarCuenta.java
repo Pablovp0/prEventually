@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import interfaces.InterfazEliminarCuenta;
 import prEventually.ConexionConBaseDeDatos;
+import prEventually.Sesion;
 import pruebas.PRUEBATOTAL;
 
 public class CntrlEliminarCuenta implements ActionListener{
@@ -23,18 +24,19 @@ public class CntrlEliminarCuenta implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		
-		String usuario = iEcPanel.getUsuario().getText();
-		String contrasena = iEcPanel.getContra().getText();
+		Sesion s = CntrlInicioSesion.getSesion();
+		String contrasenaEscrita = iEcPanel.getContra().getText();
 		JPanel cardParent = (JPanel) iEcPanel.getParent();
 		
-		if(conexionBD.iniciarSesion(usuario, contrasena)) {
-			conexionBD.eliminarCuenta(usuario);
+		if(contrasenaEscrita.equals(s.getContraseña())) {
+			
+			conexionBD.eliminarCuenta(s.getNusuario());
 			CardLayout ccl = (CardLayout) (cardParent.getLayout());
-			ccl.show(cardParent, PRUEBATOTAL.SEGUNDOPANEL);
+			ccl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
 			
 		} else {
 			JOptionPane.showMessageDialog(cardParent,
-	        	    "Usuario o contrasena incorrecto",
+	        	    "Contrasena incorrecta",
 	        	    "Error",
 	        	    JOptionPane.PLAIN_MESSAGE);
 			

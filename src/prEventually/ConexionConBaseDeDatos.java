@@ -11,7 +11,7 @@ public abstract class ConexionConBaseDeDatos {
 	static final String PASS = "citasyeventos";
 	
 	public abstract int registrarNuevoUsuario(Usuario u);
-	public abstract boolean iniciarSesion(String usuario,String contrasena);
+	public abstract Sesion iniciarSesion(String usuario,String contrasena);
 	public abstract void eliminarCuenta(String usuario);
 	public abstract int crearEvento(Evento e);
 }

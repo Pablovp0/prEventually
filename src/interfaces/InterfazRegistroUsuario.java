@@ -81,7 +81,7 @@ public class InterfazRegistroUsuario extends JPanel{
 				
 				JPanel cardParent = (JPanel) InterfazRegistroUsuario.this.getParent();
 				CardLayout cl = (CardLayout)(cardParent.getLayout());
-		        cl.show(cardParent, PRUEBATOTAL.SEGUNDOPANEL);
+		        cl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
 			}
 		});
 		

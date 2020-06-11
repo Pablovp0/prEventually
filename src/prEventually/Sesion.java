@@ -3,12 +3,20 @@ package prEventually;
 import java.util.Date;
 
 public class Sesion{
-	Date fecha;
-	Usuario us = new Usuario();
+	String nusuario;
+	String contraseña;
 	
-	public Sesion(Usuario u,Date f) {
-		fecha = f;
-		us = u;
+	public Sesion(String n, String c) {
+		nusuario = n;
+		contraseña = c;
+	}
+
+	public String getNusuario() {
+		return nusuario;
+	}
+
+	public String getContraseña() {
+		return contraseña;
 	}
 	
 }

@@ -23,9 +23,7 @@ public class InterfazEliminarCuenta extends JPanel{
 
 	private JButton bEliminarCuenta;
 	private JButton bVolver;
-	private JTextField tfUser;
 	private JPasswordField tfPassword;
-	private TextPrompt placeholderUser;
 	private TextPrompt placeholderPassword;
 	private JLabel lPregunta;
 
@@ -33,14 +31,10 @@ public class InterfazEliminarCuenta extends JPanel{
 
 		bEliminarCuenta = new JButton("Eliminar cuenta");
 		bVolver = new JButton("Volver");
-		tfUser = new JTextField(20);
 		tfPassword = new JPasswordField(20);
-		lPregunta = new JLabel("Rellena tus datos y pulsa en 'Eliminar cuenta' para borrar tu cuenta.");
+		lPregunta = new JLabel("Introduce tu contraseña y pulsa en 'Eliminar cuenta' para borrar tu cuenta.");
 
-		placeholderUser = new TextPrompt("Usuario", tfUser);
 		placeholderPassword = new TextPrompt("Contraseña", tfPassword);
-		placeholderUser.changeAlpha(0.75f);
-		placeholderUser.changeStyle(Font.ITALIC);
 		placeholderPassword.changeAlpha(0.75f);
 		placeholderPassword.changeStyle(Font.ITALIC);
 
@@ -53,9 +47,8 @@ public class InterfazEliminarCuenta extends JPanel{
 		botones.add(bVolver);
 
 		JPanel campos = new JPanel();
-		campos.setLayout(new GridLayout(3, 1));
+		campos.setLayout(new GridLayout(2, 1));
 		campos.add(lPregunta);
-		campos.add(tfUser);
 		campos.add(tfPassword);
 
 		add(botones, BorderLayout.SOUTH);
@@ -63,7 +56,6 @@ public class InterfazEliminarCuenta extends JPanel{
 
 		bVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tfUser.setText(null);
 				tfPassword.setText(null);
 				
 				JPanel cardParent = (JPanel) InterfazEliminarCuenta.this.getParent();
@@ -72,10 +64,6 @@ public class InterfazEliminarCuenta extends JPanel{
 			}
 		});
 
-	}
-
-	public JTextField getUsuario() {
-		return tfUser;
 	}
 
 	public JTextField getContra() {

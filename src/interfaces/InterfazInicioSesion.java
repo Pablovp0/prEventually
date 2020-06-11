@@ -64,7 +64,7 @@ public class InterfazInicioSesion extends JPanel {
 				
 				JPanel cardParent = (JPanel) InterfazInicioSesion.this.getParent();
 				CardLayout cl = (CardLayout) (cardParent.getLayout());
-				cl.show(cardParent, PRUEBATOTAL.PRIMERPANEL);
+				cl.show(cardParent, PRUEBATOTAL.PANELREGISTRO);
 			}
 		});
 
