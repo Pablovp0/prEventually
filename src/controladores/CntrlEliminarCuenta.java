@@ -38,7 +38,7 @@ public class CntrlEliminarCuenta implements ActionListener{
 			JOptionPane.showMessageDialog(cardParent,
 	        	    "Contrasena incorrecta",
 	        	    "Error",
-	        	    JOptionPane.PLAIN_MESSAGE);
+	        	    JOptionPane.ERROR_MESSAGE);
 			
 		}
 		

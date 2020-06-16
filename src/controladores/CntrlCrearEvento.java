@@ -23,10 +23,15 @@ public class CntrlCrearEvento implements ActionListener{
 		conexionBD = connbd;
 		cePanel = ce;
 	}
-	
-	public void popUp(JPanel parent, String err) {
+	public void popUpError(JPanel parent, String err) {
 		JOptionPane.showMessageDialog(parent,
         	    err,
+        	    "Mensaje",
+        	    JOptionPane.ERROR_MESSAGE);
+	}
+	public void popUp(JPanel parent, String msj) {
+		JOptionPane.showMessageDialog(parent,
+        	    msj,
         	    "Mensaje",
         	    JOptionPane.PLAIN_MESSAGE);
 	}
@@ -42,9 +47,10 @@ public class CntrlCrearEvento implements ActionListener{
 		if(ev.getFecha() == null || ev.getFecha().length()==0 ||
 				ev.getLugar() == null || ev.getLugar().length()==0 ||
 				ev.getNombre()==null || ev.getNombre().length()==0) {
-			popUp(cePanel, "Campo vacio");
-		}
-		else {
+			popUpError(cePanel, "Campo vacio");
+		}else if(conexionBD.existeEvento(ev.getNombre())){
+			popUpError(cePanel, "Ya existe un evento con ese nombre");
+		}else {
 			int eventoID = conexionBD.crearEvento(ev);
 			ev.setId(eventoID);
 			popUp(cePanel, "Evento creado");

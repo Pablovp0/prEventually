@@ -14,4 +14,6 @@ public abstract class ConexionConBaseDeDatos {
 	public abstract Sesion iniciarSesion(String usuario,String contrasena);
 	public abstract void eliminarCuenta(String usuario);
 	public abstract int crearEvento(Evento e);
+	public abstract boolean existeUsuario(String usuario);
+	public abstract boolean existeEvento(String evento);
 }

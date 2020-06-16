@@ -2,6 +2,7 @@ package interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,6 +21,9 @@ public class InterfazPrincipal extends JPanel {
 	private JButton bCrearEvento = new JButton("Crear evento");
 	private JButton bEliminar = new JButton("Eliminar cuenta");
 	private JButton bCerrarSesion = new JButton("Cerrar Sesion");
+	private JButton bParticipar = new JButton("Participar");
+	private JButton bAnular = new JButton("Anular");
+	private JPanel panelPrincipal = new JPanel();
 	private JPanel panelEvento = new JPanel();
 	private JPanel panelPerfil = new JPanel();
 	
@@ -27,6 +31,9 @@ public class InterfazPrincipal extends JPanel {
 	public InterfazPrincipal() {
 		JTabbedPane tabbedPane = new JTabbedPane();
 
+		JComponent panel0 = crearPanelPrincipal();
+		tabbedPane.addTab("Panel Principal", null, panel0, "wowowoow");
+		
 		JComponent panel1 = crearPanelEvento();
 		tabbedPane.addTab("Eventos", null, panel1, "cacahuete");
 
@@ -43,6 +50,26 @@ public class InterfazPrincipal extends JPanel {
 		return panelEvento;
 		
 		
+	}
+	
+	public JPanel crearPanelPrincipal() {
+
+		setLayout(new GridLayout(2, 1));
+		panelPrincipal.add(bParticipar);
+		panelPrincipal.add(bAnular);
+		
+		bParticipar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("participar");
+		}
+		});
+		
+		bAnular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Anular");
+			}
+		});
+		return panelPrincipal;
 	}
 
 	public JPanel crearPanelPerfil() {

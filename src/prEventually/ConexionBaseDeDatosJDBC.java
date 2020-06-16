@@ -123,7 +123,41 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		}
 		
 	}
-
+	public boolean existeUsuario(String usuario) {
+		boolean existe=false;
+		
+		String insertBody = "SELECT * FROM users where user=?";
+		try {
+			PreparedStatement estatamentoPreparado = conn.prepareStatement(insertBody);
+			estatamentoPreparado.setString(1, usuario);
+			ResultSet rs = estatamentoPreparado.executeQuery();
+			if(rs.next()) {
+				existe = true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return existe;
+	}
+	
+	public boolean existeEvento(String evento) {
+		boolean existe=false;
+		
+		String insertBody = "SELECT * FROM eventos where nombre=?";
+		try {
+			PreparedStatement estatamentoPreparado = conn.prepareStatement(insertBody);
+			estatamentoPreparado.setString(1, evento);
+			ResultSet rs = estatamentoPreparado.executeQuery();
+			if(rs.next()) {
+				existe = true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return existe;
+	}
 	
 	
 }

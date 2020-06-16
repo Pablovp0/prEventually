@@ -28,10 +28,15 @@ import pruebas.PRUEBATOTAL;
 		JOptionPane.showMessageDialog(parent,
         	    err,
         	    "Error",
-        	    JOptionPane.PLAIN_MESSAGE);
+        	    JOptionPane.ERROR_MESSAGE);
 	}
 	
-	
+	public void popUp(JPanel parent, String msj) {
+		JOptionPane.showMessageDialog(parent,
+        	    msj,
+        	    "Mensaje",
+        	    JOptionPane.PLAIN_MESSAGE);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e){
 		Usuario u = new Usuario(0,
@@ -45,10 +50,12 @@ import pruebas.PRUEBATOTAL;
 				u.getMail()==null || u.getMail().length()==0) {
 			popUpError(cardParent, "Campos en blanco");
 			
+		}else if(conexionBD.existeUsuario(u.getUser())){
+			popUpError(cardParent, "Ya existe un usuario con ese nombre");
 		}else {
 			int usuarioID = conexionBD.registrarNuevoUsuario(u);
 			u.setIdentificador(usuarioID);
-			popUpError(cardParent, "Nuevo usuario registrado");
+			popUp(cardParent, "Nuevo usuario registrado");
 			nuPanel.getUser().setText(null);
 			nuPanel.getMail().setText(null);
 			nuPanel.getPassword().setText(null);

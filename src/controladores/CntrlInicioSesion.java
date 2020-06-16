@@ -24,11 +24,11 @@ public class CntrlInicioSesion implements ActionListener {
 		iniPanel = ini;
 	}
 
-	public void popUp(JPanel parent, String err) {
+	public void popUpError(JPanel parent, String err) {
 		JOptionPane.showMessageDialog(parent,
         	    err,
         	    "Error",
-        	    JOptionPane.PLAIN_MESSAGE);
+        	    JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -53,7 +53,7 @@ public class CntrlInicioSesion implements ActionListener {
 				iniPanel.getContra().setText(null);
 				
 		} else {
-			popUp(cardParent, "Usuario o contrasena incorrectos");
+			popUpError(cardParent, "Usuario o contrasena incorrectos");
 			
 		}	
 	}
