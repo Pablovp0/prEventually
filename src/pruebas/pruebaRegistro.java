@@ -13,6 +13,8 @@ public class pruebaRegistro {
 	
 	public final static String PRIMERPANEL = "INTERFAZ REGISTRO"; 
 	public final static String SEGUNDOPANEL = "INTERFAZ INICIO DE SESION";
+	
+	
 	public static void main(String[] args) {
 		
 		InterfazRegistroUsuario i = new InterfazRegistroUsuario();
@@ -35,7 +37,6 @@ public class pruebaRegistro {
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
 		CntrlRegistroUsuario c = new CntrlRegistroUsuario(accesoBD, i);
 		i.controlador(c);
-		
 		
 		
 	}

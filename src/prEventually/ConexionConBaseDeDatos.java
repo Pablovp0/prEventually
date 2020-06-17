@@ -1,5 +1,7 @@
 package prEventually;
 
+import java.util.List;
+
 public abstract class ConexionConBaseDeDatos {
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -9,6 +11,9 @@ public abstract class ConexionConBaseDeDatos {
 	//  Database credentials
 	static final String USER = "eventual";
 	static final String PASS = "citasyeventos";
+	
+	public abstract List<Evento> listaEventos();
+//	public abstract List<Usuario> listaParticipantesDeUnEvento(int idEv);
 	
 	public abstract int registrarNuevoUsuario(Usuario u);
 	public abstract Sesion iniciarSesion(String usuario,String contrasena);

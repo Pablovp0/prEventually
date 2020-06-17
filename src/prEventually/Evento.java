@@ -1,6 +1,9 @@
 package prEventually;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class Evento {
 	
@@ -9,13 +12,31 @@ public class Evento {
 	private String lugar;
 	private String organizador;
 	private int id;
+	List<Usuario> participantes;
 	
+	public List<Usuario> getParticipantes() {
+		return participantes;
+	}
+
+	public void setParticipantes(List<Usuario> participantes) {
+		this.participantes = participantes;
+	}
+	
+	public void inscribirUsuario(Usuario u) {
+		participantes.add(u);
+	}
+	
+	public void dardeBajaUsuario(Usuario u) {
+		participantes.remove(u);
+	}
+
 	public Evento(int i, String n, String f, String l, String o) {
 		id = i;
 		nombre = n;
 		fecha = f;
 		lugar = l;
 		organizador = o;
+		participantes = new ArrayList<>();
 	}
 	
 	

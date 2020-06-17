@@ -6,6 +6,8 @@ import java.util.List;
 
 
 
+
+
 public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 	
 	private Connection conn;
@@ -30,6 +32,69 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		}
 		return instanciaInterfaz;
 	}
+	
+	public List<Evento> listaEventos() {
+		ArrayList<Evento> lEventos = new ArrayList<>();
+		String selectQueryBody = "SELECT * FROM eventos";
+		Statement querySt;
+		try {
+			querySt = conn.createStatement();
+			ResultSet rs = querySt.executeQuery(selectQueryBody);
+			// position result to first
+			if (rs.isBeforeFirst()) {
+				while (rs.next()) {
+
+					String nombre = rs.getString(1);
+					String fecha = rs.getString(2);
+					String lugar = rs.getString(3);
+					String organizador = rs.getString(4);
+					int id = rs.getInt(5);
+					
+					Evento ev = new Evento(id, nombre, fecha, lugar, organizador);
+					lEventos.add(ev);
+					System.out.println(ev.getId() + " " + ev.getNombre());
+//					List<Usuario> participantesEvento = listaParticipantesDeUnEvento(ev.getId());
+//					for (Usuario participante : participantesEvento) {
+//						System.out.println(participante.getIdentificador() + " " + participante.getUser() + " " + 
+//					                     participante.getPassword());
+//						ev.inscribirUsuario(participante);
+//					}
+
+				}
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lEventos;
+	}
+	
+//	public List<Usuario> listaParticipantesDeUnEvento(int idEq) {
+//		ArrayList<Usuario> lEventos = new ArrayList<>();
+//		String selectQueryBody = "SELECT * FROM users WHERE idEquipo=?";
+//		try {
+//			PreparedStatement preparedStatement = conn.prepareStatement(selectQueryBody);
+//			preparedStatement.setInt(1, idEq);
+//			ResultSet rs = preparedStatement.executeQuery();
+//			// position result to first
+//			if (rs.isBeforeFirst()) {
+//				while (rs.next()) {
+//					int id = rs.getInt(1);
+//					String name = rs.getString(2);
+//					int edad = rs.getInt(3);
+//					int idEquipo = rs.getInt(4);
+//					lEquipos.add(new Jugador(id, name, edad, idEquipo));
+//				}
+//			}
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return lEquipos;
+//	}
 	
 	public int registrarNuevoUsuario(Usuario u) {
 		int userID = 0;
@@ -158,6 +223,7 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		
 		return existe;
 	}
+
 	
 	
 }

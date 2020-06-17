@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -14,6 +15,7 @@ import javax.swing.JTabbedPane;
 import controladores.CntrlBotonCrearEvento;
 import controladores.CntrlEliminarCuenta;
 import controladores.CntrlRegistroUsuario;
+import prEventually.*;
 import pruebas.PRUEBATOTAL;
 
 public class InterfazPrincipal extends JPanel {
@@ -31,6 +33,9 @@ public class InterfazPrincipal extends JPanel {
 	public InterfazPrincipal() {
 		JTabbedPane tabbedPane = new JTabbedPane();
 
+//		List<Evento> le = null;
+//		List<Usuario> lu = null;
+//		JComponent panel0 = new InterfazListaEventos(le, lu);
 		JComponent panel0 = crearPanelPrincipal();
 		tabbedPane.addTab("Panel Principal", null, panel0, "wowowoow");
 		

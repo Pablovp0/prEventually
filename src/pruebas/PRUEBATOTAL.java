@@ -1,6 +1,8 @@
 package pruebas;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,14 +22,24 @@ public class PRUEBATOTAL {
 	public final static String PANELPRINCIPAL = "INTERFAZ PRINCIPAL";
 	public final static String PANELELIMINARCUENTA = "INTERFAZ ELIMINAR CUENTA";
 	public final static String PANELCREAREVENTO = "INTERFAZ CREAR EVENTO";
+	public final static String PANELLISTAEVENTOS = "INTERFAZ LISTA EVENTOS";
 	
 	public static void main(String[] args) {
+		
+		ConexionConBaseDeDatos accesoBD;
+		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
+		
+		List<Evento> listEventos = accesoBD.listaEventos();
+		List<Usuario> listVacia = new ArrayList<>();
+		listVacia = null;
 		
 		InterfazRegistroUsuario i = new InterfazRegistroUsuario();
 		InterfazInicioSesion in = new InterfazInicioSesion();
 		InterfazPrincipal ip = new InterfazPrincipal();
 		InterfazEliminarCuenta iec = new InterfazEliminarCuenta();
 		InterfazCrearEvento ice = new InterfazCrearEvento();
+		InterfazListaEventos ile = new InterfazListaEventos(listEventos, listVacia);
+		
 		
 		JPanel cards = new JPanel();
         //Create the panel that contains the "cards".
@@ -37,6 +49,7 @@ public class PRUEBATOTAL {
         cards.add(ip, PANELPRINCIPAL);
         cards.add(iec, PANELELIMINARCUENTA);
         cards.add(ice, PANELCREAREVENTO);
+        cards.add(ile,PANELLISTAEVENTOS);
 		JFrame ventana = new JFrame("Eventually");
 
 		ventana.setSize(200, 175);
@@ -45,8 +58,7 @@ public class PRUEBATOTAL {
 		ventana.pack();
 		ventana.setVisible(true);
 
-		ConexionConBaseDeDatos accesoBD;
-		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
+	
 		CntrlRegistroUsuario cReg = new CntrlRegistroUsuario(accesoBD, i);
 		CntrlInicioSesion cIni = new CntrlInicioSesion(accesoBD, in);
 		CntrlEliminarCuenta cEc = new CntrlEliminarCuenta(accesoBD, iec);
