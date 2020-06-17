@@ -11,27 +11,37 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import controladores.CntrlEliminarCuenta;
+import controladores.CntrlEliminarEvento;
 import prEventually.*;
 
 public class InterfazListaEventos extends JPanel{
 	
-	List<Evento> eventos;
-	List<Usuario> usuarios;
+	private List<Evento> eventos;
+	private List<Usuario> usuarios;
 	
-	JLabel lbSlcEvento;
-	JComboBox<Evento> cbEventos;
-	JPanel pnSlcEvento;
+	private JLabel lbSlcEvento;
+	private JComboBox<Evento> cbEventos;
+	private JPanel pnSlcEvento;
 	
-	JLabel lbParticipantesEventoSeleccionado;
-	DefaultListModel<Usuario> lmParticipantesEventoSeleccionado;
-	JList<Usuario> lstParticipantesEventoSeleccionado;
-	JPanel pnListaParticipantes;
+	private JLabel lbParticipantesEventoSeleccionado;
+	private DefaultListModel<Usuario> lmParticipantesEventoSeleccionado;
+	private JList<Usuario> lstParticipantesEventoSeleccionado;
+	private JPanel pnListaParticipantes;
 	
-	JButton btParticipar;
-	JButton btCancelarParticipacion;
-	JButton btEliminarEvento;
-	JButton btExpulsarParticipante;
-	JPanel pnBotones;
+	private JButton btParticipar;
+	private JButton btCancelarParticipacion;
+	private JButton btEliminarEvento;
+	private JButton btExpulsarParticipante;
+	private JPanel pnBotones;
+	
+	private JLabel lbFecha;
+	private JLabel lbFechaEvento;
+	private JLabel lbLugar;
+	private JLabel lbLugarEvento;
+	private JLabel lbOrganizador;
+	private JLabel lbOrganizadorEvento;
+	private JPanel pnInfoEvento;
 	
 	public InterfazListaEventos (List<Evento> le, List<Usuario> lu) {
 		eventos = le;
@@ -48,6 +58,24 @@ public class InterfazListaEventos extends JPanel{
 		pnSlcEvento.add(lbSlcEvento);
 		pnSlcEvento.add(cbEventos);
 		add(pnSlcEvento);
+		
+		//panel informacion del evento
+		
+		lbFecha = new JLabel("Fecha: ");
+		lbFechaEvento = new JLabel("");
+		lbLugar = new JLabel("Lugar: ");
+		lbLugarEvento = new JLabel("");
+		lbOrganizador = new JLabel("Organizador: ");
+		lbOrganizadorEvento = new JLabel("");
+		pnInfoEvento = new JPanel();
+		pnInfoEvento.setLayout(new GridLayout(3, 2));
+		pnInfoEvento.add(lbFecha);
+		pnInfoEvento.add(lbFechaEvento);
+		pnInfoEvento.add(lbLugar);
+		pnInfoEvento.add(lbLugarEvento);
+		pnInfoEvento.add(lbOrganizador);
+		pnInfoEvento.add(lbOrganizadorEvento);
+		add(pnInfoEvento);
 
 		// panel de listas de jugadores
 		pnListaParticipantes = new JPanel();
@@ -77,5 +105,39 @@ public class InterfazListaEventos extends JPanel{
 		
 		add(pnBotones);
 	}
+	
+	public JLabel getlbFechaEvento() {
+		return lbFechaEvento;
+	}
+	
+	public JLabel getlbLugarEvento() {
+		return lbLugarEvento;
+	}
+	
+	public JLabel getlbOrganizadorEvento() {
+		return lbOrganizadorEvento;
+	}
+	
+	public JComboBox<Evento> getcbEventos() {
+		return cbEventos;
+	}
+	
+	public void actualizarListaEventos() {
+		ConexionConBaseDeDatos accesoBD;
+		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
+		
+		eventos = accesoBD.listaEventos();
+		
+		cbEventos = new JComboBox<Evento>();
+		for (Evento e : eventos) {
+			cbEventos.addItem(e);
+		}
+		
+	}
+	
+	public void controladorEliminarEvento (CntrlEliminarEvento c) {
+		btEliminarEvento.addActionListener(c);
+	}
+	
 	
 }

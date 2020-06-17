@@ -85,5 +85,9 @@ public class Evento {
 		this.organizador = organizador;
 	}
 	
+	public String toString() {
+		return nombre;
+	}
+	
 	
 }

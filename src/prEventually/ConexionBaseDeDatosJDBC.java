@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
+
 
 
 
@@ -141,6 +143,19 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return eventID;
 	}
 	
+	public void eliminarEvento(int idEvento) {
+		int n = idEvento;
+		String deleteBody = "DELETE FROM eventos WHERE (id = ?)";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+			preparedStatement.setInt(1, n);
+			int res = preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+	}
+	
 	public Sesion iniciarSesion(String usuario, String contrasena) {
 		Sesion s = null;
 		String insertBody = "SELECT * FROM users where user=? and password=?";
@@ -188,6 +203,9 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		}
 		
 	}
+	
+	
+	
 	public boolean existeUsuario(String usuario) {
 		boolean existe=false;
 		

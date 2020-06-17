@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import controladores.CntrlBotonCrearEvento;
 import controladores.CntrlCrearEvento;
 import controladores.CntrlEliminarCuenta;
+import controladores.CntrlEliminarEvento;
 import controladores.CntrlInicioSesion;
 import controladores.CntrlRegistroUsuario;
 import interfaces.*;
@@ -29,16 +30,11 @@ public class PRUEBATOTAL {
 		ConexionConBaseDeDatos accesoBD;
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
 		
-		List<Evento> listEventos = accesoBD.listaEventos();
-		List<Usuario> listVacia = new ArrayList<>();
-		listVacia = null;
-		
 		InterfazRegistroUsuario i = new InterfazRegistroUsuario();
 		InterfazInicioSesion in = new InterfazInicioSesion();
 		InterfazPrincipal ip = new InterfazPrincipal();
 		InterfazEliminarCuenta iec = new InterfazEliminarCuenta();
 		InterfazCrearEvento ice = new InterfazCrearEvento();
-		InterfazListaEventos ile = new InterfazListaEventos(listEventos, listVacia);
 		
 		
 		JPanel cards = new JPanel();
@@ -49,7 +45,6 @@ public class PRUEBATOTAL {
         cards.add(ip, PANELPRINCIPAL);
         cards.add(iec, PANELELIMINARCUENTA);
         cards.add(ice, PANELCREAREVENTO);
-        cards.add(ile,PANELLISTAEVENTOS);
 		JFrame ventana = new JFrame("Eventually");
 
 		ventana.setSize(200, 175);
@@ -64,11 +59,13 @@ public class PRUEBATOTAL {
 		CntrlEliminarCuenta cEc = new CntrlEliminarCuenta(accesoBD, iec);
 		CntrlBotonCrearEvento cBce = new CntrlBotonCrearEvento(ip);
 		CntrlCrearEvento cCe = new CntrlCrearEvento(accesoBD, ice);
+		CntrlEliminarEvento cEe = new CntrlEliminarEvento(accesoBD, ip.getPanelListaEventos());
 		ice.controladorCrear(cCe);
 		ip.controladorBotonCrearEvento(cBce);
 		i.controlador(cReg);
 		in.controlador(cIni);
 		iec.controlador(cEc);
+		ip.getPanelListaEventos().controladorEliminarEvento(cEe);
 	}
 
 }
