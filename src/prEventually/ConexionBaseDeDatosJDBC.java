@@ -54,13 +54,10 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 					
 					Evento ev = new Evento(id, nombre, fecha, lugar, organizador);
 					lEventos.add(ev);
-					System.out.println(ev.getId() + " " + ev.getNombre());
-//					List<Usuario> participantesEvento = listaParticipantesDeUnEvento(ev.getId());
-//					for (Usuario participante : participantesEvento) {
-//						System.out.println(participante.getIdentificador() + " " + participante.getUser() + " " + 
-//					                     participante.getPassword());
-//						ev.inscribirUsuario(participante);
-//					}
+					List<String> participantesEvento = listaParticipantesDeUnEvento(ev.getId());
+					for (String participante : participantesEvento) {
+						ev.inscribirUsuario(participante);
+					}
 
 				}
 
@@ -73,30 +70,27 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return lEventos;
 	}
 	
-//	public List<Usuario> listaParticipantesDeUnEvento(int idEq) {
-//		ArrayList<Usuario> lEventos = new ArrayList<>();
-//		String selectQueryBody = "SELECT * FROM users WHERE idEquipo=?";
-//		try {
-//			PreparedStatement preparedStatement = conn.prepareStatement(selectQueryBody);
-//			preparedStatement.setInt(1, idEq);
-//			ResultSet rs = preparedStatement.executeQuery();
-//			// position result to first
-//			if (rs.isBeforeFirst()) {
-//				while (rs.next()) {
-//					int id = rs.getInt(1);
-//					String name = rs.getString(2);
-//					int edad = rs.getInt(3);
-//					int idEquipo = rs.getInt(4);
-//					lEquipos.add(new Jugador(id, name, edad, idEquipo));
-//				}
-//			}
-//
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return lEquipos;
-//	}
+	public List<String> listaParticipantesDeUnEvento(int idEv) {
+		ArrayList<String> lParticipantes = new ArrayList<>();
+		String selectQueryBody = "SELECT * FROM participaciones WHERE IdEvento=?";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(selectQueryBody);
+			preparedStatement.setInt(1, idEv);
+			ResultSet rs = preparedStatement.executeQuery();
+			// position result to first
+			if (rs.isBeforeFirst()) {
+				while (rs.next()) {
+					String nParticipante = rs.getString(2);
+					lParticipantes.add(nParticipante);
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lParticipantes;
+	}
 	
 	public int registrarNuevoUsuario(Usuario u) {
 		int userID = 0;
@@ -188,6 +182,44 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 				e.printStackTrace();
 		}
 		return ok;
+	}
+	
+	
+	
+	public int añadirParticipante(Participación p) {
+		String insertBody = "INSERT INTO participaciones (IdEvento, NombreParticipante) VALUES (?, ?)";
+		int participacionID = 0;
+		try {
+			
+			
+			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, p.getIdEv());
+			preparedStatement.setString(2, p.getnU());
+			
+			int res = preparedStatement.executeUpdate();
+			ResultSet rs = preparedStatement.getGeneratedKeys();
+			while(rs.next()) {
+				participacionID = rs.getInt(1);
+			}
+		}catch(SQLException e1) {
+			e1.printStackTrace();
+		}
+		return participacionID;
+
+	}
+	
+	public void eliminarParticipacion(String nUsuario, int idEv) {
+		String deleteBody = "DELETE FROM participaciones WHERE (NombreParticipante = ?) AND (IdEvento = ?)";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+			preparedStatement.setString(1, nUsuario);
+			preparedStatement.setInt(2, idEv);
+			int res = preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+		
 	}
 	
 	public void eliminarCuenta(String nUsuario) {

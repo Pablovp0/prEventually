@@ -8,10 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controladores.CntrlBotonCrearEvento;
+import controladores.CntrlCancelarParticipacion;
 import controladores.CntrlCrearEvento;
 import controladores.CntrlEliminarCuenta;
 import controladores.CntrlEliminarEvento;
 import controladores.CntrlInicioSesion;
+import controladores.CntrlParticiparEvento;
 import controladores.CntrlRegistroUsuario;
 import interfaces.*;
 import prEventually.*;
@@ -59,13 +61,17 @@ public class PRUEBATOTAL {
 		CntrlEliminarCuenta cEc = new CntrlEliminarCuenta(accesoBD, iec);
 		CntrlBotonCrearEvento cBce = new CntrlBotonCrearEvento(ip);
 		CntrlCrearEvento cCe = new CntrlCrearEvento(accesoBD, ice);
-		CntrlEliminarEvento cEe = new CntrlEliminarEvento(accesoBD, ip.getPanelListaEventos());
+		CntrlEliminarEvento cEe = new CntrlEliminarEvento(accesoBD, ip);
+		CntrlParticiparEvento cPe = new CntrlParticiparEvento(accesoBD, ip);
+		CntrlCancelarParticipacion cCp = new CntrlCancelarParticipacion(accesoBD, ip);
 		ice.controladorCrear(cCe);
 		ip.controladorBotonCrearEvento(cBce);
 		i.controlador(cReg);
 		in.controlador(cIni);
 		iec.controlador(cEc);
 		ip.getPanelListaEventos().controladorEliminarEvento(cEe);
+		ip.getPanelListaEventos().controladorParticiparEvento(cPe);
+		ip.getPanelListaEventos().controladorCancelarParticipacion(cCp); 
 	}
 
 }

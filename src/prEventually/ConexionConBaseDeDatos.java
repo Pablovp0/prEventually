@@ -12,14 +12,16 @@ public abstract class ConexionConBaseDeDatos {
 	static final String USER = "eventual";
 	static final String PASS = "citasyeventos";
 	
-	public abstract List<Evento> listaEventos();
-//	public abstract List<Usuario> listaParticipantesDeUnEvento(int idEv);
-	
+
 	public abstract int registrarNuevoUsuario(Usuario u);
 	public abstract Sesion iniciarSesion(String usuario,String contrasena);
 	public abstract void eliminarCuenta(String usuario);
 	public abstract int crearEvento(Evento e);
-	public abstract void eliminarEvento(int id);
+	public abstract void eliminarEvento(int id);	
+	public abstract List<Evento> listaEventos();
 	public abstract boolean existeUsuario(String usuario);
 	public abstract boolean existeEvento(String evento);
+	public abstract List<String> listaParticipantesDeUnEvento(int idEv);
+	public abstract int añadirParticipante(Participación p);
+	public abstract void eliminarParticipacion(String nUsuario, int idEv);
 }

@@ -1,6 +1,9 @@
 package interfaces;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -11,22 +14,24 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import controladores.CntrlCancelarParticipacion;
 import controladores.CntrlEliminarCuenta;
 import controladores.CntrlEliminarEvento;
+import controladores.CntrlParticiparEvento;
 import prEventually.*;
 
 public class InterfazListaEventos extends JPanel{
 	
 	private List<Evento> eventos;
-	private List<Usuario> usuarios;
+	private List<String> participantes;
 	
 	private JLabel lbSlcEvento;
 	private JComboBox<Evento> cbEventos;
 	private JPanel pnSlcEvento;
 	
 	private JLabel lbParticipantesEventoSeleccionado;
-	private DefaultListModel<Usuario> lmParticipantesEventoSeleccionado;
-	private JList<Usuario> lstParticipantesEventoSeleccionado;
+	private DefaultListModel<String> lmParticipantesEventoSeleccionado;
+	private JList<String> lstParticipantesEventoSeleccionado;
 	private JPanel pnListaParticipantes;
 	
 	private JButton btParticipar;
@@ -43,9 +48,9 @@ public class InterfazListaEventos extends JPanel{
 	private JLabel lbOrganizadorEvento;
 	private JPanel pnInfoEvento;
 	
-	public InterfazListaEventos (List<Evento> le, List<Usuario> lu) {
+	public InterfazListaEventos (List<Evento> le, List<String> lu) {
 		eventos = le;
-		usuarios = lu;
+		participantes = lu;
 
 		setLayout(new GridLayout(0, 1));
 		// panel de seleccion de eventos
@@ -83,11 +88,11 @@ public class InterfazListaEventos extends JPanel{
 		lbParticipantesEventoSeleccionado = new JLabel("Participantes del evento seleccionado");
 		lmParticipantesEventoSeleccionado = new DefaultListModel<>();
 		Evento evSel = (Evento) cbEventos.getItemAt(0);
-		List<Usuario> partic = evSel.getParticipantes();
-		for (Usuario u : partic) {
-			lmParticipantesEventoSeleccionado.addElement(u);
+		ArrayList<String> partic = evSel.getParticipantes();
+		for (String s : partic) {
+			lmParticipantesEventoSeleccionado.addElement(s);
 		}
-		lstParticipantesEventoSeleccionado = new JList<Usuario>(lmParticipantesEventoSeleccionado);
+		lstParticipantesEventoSeleccionado = new JList<String>(lmParticipantesEventoSeleccionado);
 		pnListaParticipantes.add(lbParticipantesEventoSeleccionado);
 		pnListaParticipantes.add(new JScrollPane(lstParticipantesEventoSeleccionado));
 		add(pnListaParticipantes);
@@ -104,6 +109,17 @@ public class InterfazListaEventos extends JPanel{
 		pnBotones.add(btExpulsarParticipante);
 		
 		add(pnBotones);
+		
+		cbEventos.addActionListener(new ActionListener() {
+			   public void actionPerformed(ActionEvent e) {
+			      Evento ev = (Evento)cbEventos.getSelectedItem();
+			      lbFechaEvento.setText(ev.getFecha());
+			      lbLugarEvento.setText(ev.getLugar());
+			      lbOrganizadorEvento.setText(ev.getOrganizador());
+			      
+			   }
+			});
+		
 	}
 	
 	public JLabel getlbFechaEvento() {
@@ -137,6 +153,14 @@ public class InterfazListaEventos extends JPanel{
 	
 	public void controladorEliminarEvento (CntrlEliminarEvento c) {
 		btEliminarEvento.addActionListener(c);
+	}
+	
+	public void controladorParticiparEvento (CntrlParticiparEvento c) {
+		btParticipar.addActionListener(c);
+	}
+	
+	public void controladorCancelarParticipacion (CntrlCancelarParticipacion c) {
+		btCancelarParticipacion.addActionListener(c);
 	}
 	
 	

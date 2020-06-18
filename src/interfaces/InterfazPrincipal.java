@@ -32,13 +32,13 @@ public class InterfazPrincipal extends JPanel {
 		JTabbedPane tabbedPane = new JTabbedPane();
 		
 		JComponent panel0 = crearPanelListaEventos();
-		tabbedPane.addTab("Lista de eventos", null, panel0, "wowowoow");
+		tabbedPane.addTab("Lista de eventos", null, panel0, "Vea la lista de eventos disponibles.");
 		
 		JComponent panel1 = crearPanelEvento();
-		tabbedPane.addTab("Eventos", null, panel1, "cacahuete");
+		tabbedPane.addTab("Eventos", null, panel1, ".");
 
 		JComponent panel2 = crearPanelPerfil();
-		tabbedPane.addTab("Perfil Usuario", null, panel2, "albaricoque");
+		tabbedPane.addTab("Perfil Usuario", null, panel2, "Cierre su sesión y elimine su cuenta.");
 
 		add(tabbedPane);
 	}
@@ -58,7 +58,7 @@ public class InterfazPrincipal extends JPanel {
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
 		
 		List<Evento> le = accesoBD.listaEventos();
-		List<Usuario> lu = new ArrayList<>();
+		List<String> lu = new ArrayList<>();
 		
 		panelListaEventos = new InterfazListaEventos(le, lu);
 		

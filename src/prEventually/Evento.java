@@ -1,9 +1,6 @@
 package prEventually;
 
 import java.util.ArrayList;
-import java.util.List;
-
-
 
 public class Evento {
 	
@@ -12,40 +9,39 @@ public class Evento {
 	private String lugar;
 	private String organizador;
 	private int id;
-	List<Usuario> participantes;
+	ArrayList<String> participantes;
 	
-	public List<Usuario> getParticipantes() {
-		return participantes;
-	}
-
-	public void setParticipantes(List<Usuario> participantes) {
-		this.participantes = participantes;
-	}
 	
-	public void inscribirUsuario(Usuario u) {
-		participantes.add(u);
-	}
-	
-	public void dardeBajaUsuario(Usuario u) {
-		participantes.remove(u);
-	}
-
 	public Evento(int i, String n, String f, String l, String o) {
 		id = i;
 		nombre = n;
 		fecha = f;
 		lugar = l;
 		organizador = o;
-		participantes = new ArrayList<>();
+		participantes = new ArrayList<String>();
 	}
 	
+	
+	public ArrayList<String> getParticipantes() {
+		return participantes;
+	}
+
+	public void setParticipantes(ArrayList<String> participantes) {
+		this.participantes = participantes;
+	}
+	
+	public void inscribirUsuario(String nu) {
+		participantes.add(nu);
+	}
+	
+	public void dardeBajaUsuario(String nu) {
+		participantes.remove(nu);
+	}
 	
 	
 	public int getId() {
 		return id;
 	}
-
-
 
 	public void setId(int id) {
 		this.id = id;
@@ -87,6 +83,14 @@ public class Evento {
 	
 	public String toString() {
 		return nombre;
+	}
+	
+	public boolean usuarioParticipa(String nUsuario) {
+		boolean res = false;
+		if(participantes.contains(nUsuario)) {
+			res = true;
+		}
+		return res;
 	}
 	
 	
