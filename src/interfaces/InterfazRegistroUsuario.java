@@ -26,12 +26,12 @@ public class InterfazRegistroUsuario extends JPanel{
 	private JButton bVolver;
 	private JTextField tfUser;
 	private JPasswordField tfPassword;
-//	private JPasswordField tfPassword2;
+	private JPasswordField tfPassword2;
 	private JTextField tfMail;
 	private TextPrompt placeholderUser;
 	private TextPrompt placeholderPassword;
 	private TextPrompt placeholderMail;
-//	private TextPrompt placeholderPassword2;
+	private TextPrompt placeholderPassword2;
 	
 	public InterfazRegistroUsuario() {
 		
@@ -39,20 +39,20 @@ public class InterfazRegistroUsuario extends JPanel{
 		bVolver = new JButton("Volver.");
 		tfUser = new JTextField(20);
 		tfPassword = new JPasswordField(20);
-//		tfPassword2 = new JPasswordField(20);
+		tfPassword2 = new JPasswordField(20);
 		tfMail = new JTextField(20);
 		
 		placeholderUser = new TextPrompt("Usuario", tfUser);
 		placeholderPassword = new TextPrompt("Contraseña", tfPassword);
-//		placeholderPassword2 = new TextPrompt("Confirme contraseña", tfPassword2);
+		placeholderPassword2 = new TextPrompt("Confirme contraseña", tfPassword2);
 		placeholderMail = new TextPrompt("Email", tfMail);
 		
 		placeholderUser.changeAlpha(0.75f);
 		placeholderUser.changeStyle(Font.ITALIC);
 		placeholderPassword.changeAlpha(0.75f);
 		placeholderPassword.changeStyle(Font.ITALIC);
-//		placeholderPassword2.changeAlpha(0.75f);
-//		placeholderPassword2.changeStyle(Font.ITALIC);
+		placeholderPassword2.changeAlpha(0.75f);
+		placeholderPassword2.changeStyle(Font.ITALIC);
 		placeholderMail.changeAlpha(0.75f);
 		placeholderMail.changeStyle(Font.ITALIC);
 		
@@ -65,10 +65,10 @@ public class InterfazRegistroUsuario extends JPanel{
 		botones.add(bVolver);
 		
 		JPanel campos = new JPanel();
-		campos.setLayout(new GridLayout(3, 1));
+		campos.setLayout(new GridLayout(4, 1));
 		campos.add(tfUser);
 		campos.add(tfPassword);
-//		campos.add(tfPassword2);
+		campos.add(tfPassword2);
 		campos.add(tfMail);
 		
 		
@@ -99,9 +99,9 @@ public class InterfazRegistroUsuario extends JPanel{
 		return tfPassword;
 	}
 	
-//	public JTextField getPassword2() {
-//		return tfPassword2;
-//	}
+	public JTextField getPassword2() {
+		return tfPassword2;
+	}
 	
 	public JTextField getMail() {
 		return tfMail;

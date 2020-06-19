@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -22,7 +23,12 @@ public class InterfazPrincipal extends JPanel {
 	
 	private JButton bCrearEvento = new JButton("Crear evento");
 	private JButton bEliminar = new JButton("Eliminar cuenta");
-	private JButton bCerrarSesion = new JButton("Cerrar Sesion");
+	private JButton bCerrarSesion = new JButton("Cerrar sesion");
+	private JButton bCambiarContraseña = new JButton("Cambiar contraseña");
+	private JLabel lbU = new JLabel("Usuario:");
+	private JLabel lbUsuario = new JLabel("");
+	private JLabel lbM = new JLabel("Email:");
+	private JLabel lbMail = new JLabel("");
 	private JPanel panelEvento = new JPanel();
 	private JPanel panelPerfil = new JPanel();
 	private InterfazListaEventos panelListaEventos;
@@ -76,12 +82,15 @@ public class InterfazPrincipal extends JPanel {
 		
 		panelPerfil.add(bCerrarSesion);
 		
+		panelPerfil.add(bCambiarContraseña);
+		
 		bCerrarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JPanel cardParent = (JPanel) InterfazPrincipal.this.getParent();
 				CardLayout cl = (CardLayout)(cardParent.getLayout());
 		        cl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
+		        PRUEBATOTAL.setVentanaTamaño(350, 150);
 			}
 		});
 		
@@ -91,6 +100,17 @@ public class InterfazPrincipal extends JPanel {
 				JPanel cardParent = (JPanel) InterfazPrincipal.this.getParent();
 				CardLayout cl = (CardLayout)(cardParent.getLayout());
 		        cl.show(cardParent, PRUEBATOTAL.PANELELIMINARCUENTA);
+		        PRUEBATOTAL.setVentanaTamaño(450, 150);
+			}
+		});
+		
+		bCambiarContraseña.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JPanel cardParent = (JPanel) InterfazPrincipal.this.getParent();
+				CardLayout cl = (CardLayout)(cardParent.getLayout());
+		        cl.show(cardParent, PRUEBATOTAL.PANELCAMBIARCONTRASEÑA);
+		        PRUEBATOTAL.setVentanaTamaño(350, 150);
 			}
 		});
 		

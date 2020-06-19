@@ -24,4 +24,6 @@ public abstract class ConexionConBaseDeDatos {
 	public abstract List<String> listaParticipantesDeUnEvento(int idEv);
 	public abstract int añadirParticipante(Participación p);
 	public abstract void eliminarParticipacion(String nUsuario, int idEv);
+	public abstract void actualizarContraseña(String nUsuario, String contraNueva);
+	public abstract String getMailUsuario(String nUsuario);
 }

@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import controladores.CntrlBotonCrearEvento;
+import controladores.CntrlCambiarContraseña;
 import controladores.CntrlCancelarParticipacion;
 import controladores.CntrlCrearEvento;
 import controladores.CntrlEliminarCuenta;
@@ -25,6 +26,7 @@ public class PRUEBATOTAL {
 	public final static String PANELELIMINARCUENTA = "INTERFAZ ELIMINAR CUENTA";
 	public final static String PANELCREAREVENTO = "INTERFAZ CREAR EVENTO";
 	public final static String PANELLISTAEVENTOS = "INTERFAZ LISTA EVENTOS";
+	public final static String PANELCAMBIARCONTRASEÑA = "INTERFAZ CAMBIAR CONTRASEÑA";
 	public static JFrame ventana;
 	
 	public static void main(String[] args) {
@@ -37,6 +39,7 @@ public class PRUEBATOTAL {
 		InterfazPrincipal ip = new InterfazPrincipal();
 		InterfazEliminarCuenta iec = new InterfazEliminarCuenta();
 		InterfazCrearEvento ice = new InterfazCrearEvento();
+		InterfazCambiarContraseña icc = new InterfazCambiarContraseña();
 		
 		
 		JPanel cards = new JPanel();
@@ -47,6 +50,7 @@ public class PRUEBATOTAL {
         cards.add(ip, PANELPRINCIPAL);
         cards.add(iec, PANELELIMINARCUENTA);
         cards.add(ice, PANELCREAREVENTO);
+        cards.add(icc, PANELCAMBIARCONTRASEÑA);
 		ventana = new JFrame("Eventually");
 
 
@@ -54,7 +58,8 @@ public class PRUEBATOTAL {
 		ventana.setContentPane(cards);
 		ventana.pack();
 		ventana.setVisible(true);
-		ventana.setSize(337, 146);
+		ventana.setSize(350, 150);
+		
 	
 		CntrlRegistroUsuario cReg = new CntrlRegistroUsuario(accesoBD, i);
 		CntrlInicioSesion cIni = new CntrlInicioSesion(accesoBD, in);
@@ -65,6 +70,7 @@ public class PRUEBATOTAL {
 		CntrlParticiparEvento cPe = new CntrlParticiparEvento(accesoBD, ip);
 		CntrlCancelarParticipacion cCp = new CntrlCancelarParticipacion(accesoBD, ip);
 		CntrlExpulsarParticipantes cEp = new CntrlExpulsarParticipantes(accesoBD, ip);
+		CntrlCambiarContraseña cCc = new CntrlCambiarContraseña(accesoBD, icc);
 		ice.controladorCrear(cCe);
 		ip.controladorBotonCrearEvento(cBce);
 		i.controlador(cReg);
@@ -74,6 +80,8 @@ public class PRUEBATOTAL {
 		ip.getPanelListaEventos().controladorParticiparEvento(cPe);
 		ip.getPanelListaEventos().controladorCancelarParticipacion(cCp); 
 		ip.getPanelListaEventos().controladorExpulsarParticipante(cEp);
+		icc.controlador(cCc);
+		
 	}
 	public static void setVentanaTamaño(int w, int h){
 		ventana.setSize(w, h);

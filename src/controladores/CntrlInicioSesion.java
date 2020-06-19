@@ -52,7 +52,7 @@ public class CntrlInicioSesion implements ActionListener {
 				iniPanel.getUsuario().setText(null);
 				iniPanel.getContra().setText(null);
 				
-				PRUEBATOTAL.setVentanaTamaño(800, 597);
+				PRUEBATOTAL.setVentanaTamaño(800, 600);
 				
 		} else {
 			popUpError(cardParent, "Usuario o contrasena incorrectos");

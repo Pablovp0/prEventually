@@ -37,6 +37,7 @@ import pruebas.PRUEBATOTAL;
         	    "Mensaje",
         	    JOptionPane.PLAIN_MESSAGE);
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e){
 		Usuario u = new Usuario(0,
@@ -52,6 +53,8 @@ import pruebas.PRUEBATOTAL;
 			
 		}else if(conexionBD.existeUsuario(u.getUser())){
 			popUpError(cardParent, "Ya existe un usuario con ese nombre");
+		}else if(!nuPanel.getPassword().getText().equals(nuPanel.getPassword2().getText())) {
+			popUpError(cardParent, "Las dos contraseñas no son iguales.");
 		}else {
 			int usuarioID = conexionBD.registrarNuevoUsuario(u);
 			u.setIdentificador(usuarioID);

@@ -35,6 +35,7 @@ public class CntrlEliminarCuenta implements ActionListener{
 			CardLayout ccl = (CardLayout) (cardParent.getLayout());
 			ccl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
 			
+			
 		} else {
 			JOptionPane.showMessageDialog(cardParent,
 	        	    "Contrasena incorrecta",

@@ -92,6 +92,24 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return lParticipantes;
 	}
 	
+	public String getMailUsuario(String nU) {
+		String selectQueryBody = "SELECT mail FROM users WHERE user=?";
+		String nUsuario = nU;
+		String uMail = "noooooooooo";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(selectQueryBody);
+			preparedStatement.setString(1, nUsuario);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				uMail = rs.getString("mail");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return uMail;
+	}
+	
 	@Override
 	public int registrarNuevoUsuario(Usuario u) {
 		int userID = 0;
@@ -247,6 +265,23 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	public void actualizarContraseña(String nUsuario, String contraseñaNueva) {
+		String user = nUsuario;
+		String pass = contraseñaNueva;
+		String updateBody = "UPDATE users SET password = ? WHERE user = ?";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(updateBody);
+			preparedStatement.setString(1, pass);
+			preparedStatement.setString(2, user);
+			
+			@SuppressWarnings("unused")
+			int res = preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
 	}
 	
 	
