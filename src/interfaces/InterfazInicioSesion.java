@@ -13,10 +13,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controladores.CntrlInicioSesion;
-import controladores.CntrlRegistroUsuario;
 import pruebas.PRUEBATOTAL;
 
 public class InterfazInicioSesion extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 
 	public static String BT_INICIAR_SESION_ACCION_COMMAND = "BT_INICIAR_SESION_ACCION_COMMAND";
 
@@ -58,6 +59,7 @@ public class InterfazInicioSesion extends JPanel {
 		add(campos, BorderLayout.CENTER);
 
 		bCrearCuenta.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				tfUser.setText(null);
 				tfPassword.setText(null);

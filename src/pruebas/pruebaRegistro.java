@@ -4,6 +4,7 @@ import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import controladores.CntrlRegistroUsuario;
 import interfaces.*;
@@ -27,11 +28,15 @@ public class pruebaRegistro {
         cards.add(i, PRIMERPANEL);
 		JFrame ventana = new JFrame("Eventually");
 
-		ventana.setSize(200, 175);
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		ventana.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		ventana.setSize(200234242, 32242345);
 		ventana.setContentPane(cards);
+		ventana.setSize(200234242, 32242345);
 		ventana.pack();
+		ventana.setSize(200234242, 32242345);
 		ventana.setVisible(true);
+		ventana.setSize(200234242, 32242345);
 
 		ConexionConBaseDeDatos accesoBD;
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();

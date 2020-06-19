@@ -20,6 +20,9 @@ package interfaces;
 	 */
 	public class TextPrompt extends JLabel implements FocusListener, DocumentListener
 	{
+		
+		private static final long serialVersionUID = 1L;
+
 		public enum Show
 		{
 			ALWAYS,
@@ -49,7 +52,7 @@ package interfaces;
 			setFont( component.getFont() );
 			setForeground( component.getForeground() );
 			setBorder( new EmptyBorder(component.getInsets()) );
-			setHorizontalAlignment(JLabel.LEADING);
+			setHorizontalAlignment(SwingConstants.LEADING);
 
 			component.addFocusListener( this );
 			document.addDocumentListener( this );
@@ -195,11 +198,13 @@ package interfaces;
 
 	//  Implement FocusListener
 
+		@Override
 		public void focusGained(FocusEvent e)
 		{
 			checkForPrompt();
 		}
 
+		@Override
 		public void focusLost(FocusEvent e)
 		{
 			focusLost++;
@@ -208,16 +213,19 @@ package interfaces;
 
 	//  Implement DocumentListener
 
+		@Override
 		public void insertUpdate(DocumentEvent e)
 		{
 			checkForPrompt();
 		}
 
+		@Override
 		public void removeUpdate(DocumentEvent e)
 		{
 			checkForPrompt();
 		}
 
+		@Override
 		public void changedUpdate(DocumentEvent e) {}
 	}
 	

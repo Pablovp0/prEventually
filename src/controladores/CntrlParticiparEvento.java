@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 
 import interfaces.InterfazListaEventos;
 import interfaces.InterfazPrincipal;
-import prEventually.ConexionBaseDeDatosJDBC;
 import prEventually.ConexionConBaseDeDatos;
 import prEventually.Evento;
 import prEventually.Participación;
@@ -24,6 +23,7 @@ public class CntrlParticiparEvento implements ActionListener{
 		ip = i;
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		InterfazListaEventos iLePanel = ip.getPanelListaEventos();
 		Sesion s = CntrlInicioSesion.getSesion();
@@ -40,6 +40,7 @@ public class CntrlParticiparEvento implements ActionListener{
 	        	    "Participación confirmada",
 	        	    JOptionPane.DEFAULT_OPTION);
 			System.out.println(ev.getParticipantes());
+			iLePanel.actualizarListaParticipantes(ev.getId());
 		}else {
 			JOptionPane.showMessageDialog(cardParent,
 	        	    "Ya participas en el evento.",

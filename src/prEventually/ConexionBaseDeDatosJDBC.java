@@ -4,8 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JLabel;
-
 
 
 
@@ -35,6 +33,7 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return instanciaInterfaz;
 	}
 	
+	@Override
 	public List<Evento> listaEventos() {
 		ArrayList<Evento> lEventos = new ArrayList<>();
 		String selectQueryBody = "SELECT * FROM eventos";
@@ -70,6 +69,7 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return lEventos;
 	}
 	
+	@Override
 	public List<String> listaParticipantesDeUnEvento(int idEv) {
 		ArrayList<String> lParticipantes = new ArrayList<>();
 		String selectQueryBody = "SELECT * FROM participaciones WHERE IdEvento=?";
@@ -92,17 +92,19 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return lParticipantes;
 	}
 	
+	@Override
 	public int registrarNuevoUsuario(Usuario u) {
 		int userID = 0;
 		String insertBody = "INSERT INTO users (user, password, mail ) VALUES (?, ?, ?)";
 		try {
 			
 			
-			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, u.getUser());
 			preparedStatement.setString(2, u.getPassword());
 			preparedStatement.setString(3, u.getMail());
 			
+			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 			ResultSet rs = preparedStatement.getGeneratedKeys();
 			while(rs.next()) {
@@ -114,18 +116,20 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return userID;
 	}
 	
+	@Override
 	public int crearEvento(Evento e) {
 		int eventID = 0;
 		String insertBody = "INSERT INTO eventos (nombre, fecha, lugar, organizador) VALUES (?, ?, ?, ?)";
 		try {
 			
 			
-			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, e.getNombre());
 			preparedStatement.setString(2, e.getFecha());
 			preparedStatement.setString(3, e.getLugar());
 			preparedStatement.setString(4, e.getOrganizador());
 			
+			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 			ResultSet rs = preparedStatement.getGeneratedKeys();
 			while(rs.next()) {
@@ -137,12 +141,14 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return eventID;
 	}
 	
+	@Override
 	public void eliminarEvento(int idEvento) {
 		int n = idEvento;
 		String deleteBody = "DELETE FROM eventos WHERE (id = ?)";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
 			preparedStatement.setInt(1, n);
+			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 		} catch (SQLException ex) {
 			// TODO Auto-generated catch block
@@ -150,6 +156,7 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		}
 	}
 	
+	@Override
 	public Sesion iniciarSesion(String usuario, String contrasena) {
 		Sesion s = null;
 		String insertBody = "SELECT * FROM users where user=? and password=?";
@@ -186,16 +193,18 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 	
 	
 	
+	@Override
 	public int añadirParticipante(Participación p) {
 		String insertBody = "INSERT INTO participaciones (IdEvento, NombreParticipante) VALUES (?, ?)";
 		int participacionID = 0;
 		try {
 			
 			
-			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, p.getIdEv());
 			preparedStatement.setString(2, p.getnU());
 			
+			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 			ResultSet rs = preparedStatement.getGeneratedKeys();
 			while(rs.next()) {
@@ -208,12 +217,14 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 
 	}
 	
+	@Override
 	public void eliminarParticipacion(String nUsuario, int idEv) {
 		String deleteBody = "DELETE FROM participaciones WHERE (NombreParticipante = ?) AND (IdEvento = ?)";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
 			preparedStatement.setString(1, nUsuario);
 			preparedStatement.setInt(2, idEv);
+			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 		} catch (SQLException ex) {
 			// TODO Auto-generated catch block
@@ -222,12 +233,14 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		
 	}
 	
+	@Override
 	public void eliminarCuenta(String nUsuario) {
 		String user = nUsuario;
 		String deleteBody = "DELETE FROM users WHERE (user = ?)";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
 			preparedStatement.setString(1, user);
+			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 		} catch (SQLException ex) {
 			// TODO Auto-generated catch block
@@ -238,6 +251,7 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 	
 	
 	
+	@Override
 	public boolean existeUsuario(String usuario) {
 		boolean existe=false;
 		
@@ -256,6 +270,7 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		return existe;
 	}
 	
+	@Override
 	public boolean existeEvento(String evento) {
 		boolean existe=false;
 		

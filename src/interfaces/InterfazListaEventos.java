@@ -15,13 +15,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import controladores.CntrlCancelarParticipacion;
-import controladores.CntrlEliminarCuenta;
 import controladores.CntrlEliminarEvento;
+import controladores.CntrlExpulsarParticipantes;
 import controladores.CntrlParticiparEvento;
 import prEventually.*;
 
 public class InterfazListaEventos extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+	
 	private List<Evento> eventos;
 	private List<String> participantes;
 
@@ -87,7 +89,7 @@ public class InterfazListaEventos extends JPanel {
 		pnListaParticipantes.setLayout(new GridLayout(2, 1));
 		lbParticipantesEventoSeleccionado = new JLabel("Participantes del evento seleccionado");
 		lmParticipantesEventoSeleccionado = new DefaultListModel<>();
-		Evento evSel = (Evento) cbEventos.getItemAt(0);
+		Evento evSel = cbEventos.getItemAt(0);
 		ArrayList<String> partic = evSel.getParticipantes();
 		for (String s : partic) {
 			lmParticipantesEventoSeleccionado.addElement(s);
@@ -112,7 +114,8 @@ public class InterfazListaEventos extends JPanel {
 		
 		//Actualiza informacion evento y participantes al seleccionar evento en CB
 		cbEventos.addActionListener(new ActionListener() {
-			   public void actionPerformed(ActionEvent e) {
+			   @Override
+			public void actionPerformed(ActionEvent e) {
 				  if(cbEventos.getItemCount() != 0) {
 					  
 
@@ -182,4 +185,11 @@ public class InterfazListaEventos extends JPanel {
 		btCancelarParticipacion.addActionListener(c);
 	}
 
+	public void controladorExpulsarParticipante(CntrlExpulsarParticipantes c) {
+		btExpulsarParticipante.addActionListener(c);
+	}
+	
+	public List<String> getParticipantesSeleccionados(){
+		return lstParticipantesEventoSeleccionado.getSelectedValuesList();
+	}
 }

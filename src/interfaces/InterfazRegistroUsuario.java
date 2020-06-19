@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 
 public class InterfazRegistroUsuario extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
+	
 	public static String BT_NEW_USER_ACCION_COMMAND = "BT_NEW_USER_ACCION_COMMAND";
 	public static String BT_VOLVER_REGISTRO_ACCION_COMMAND = "BT_VOLVER_REGISTRO_ACCION_COMMAND";
 	
@@ -29,7 +31,7 @@ public class InterfazRegistroUsuario extends JPanel{
 	private TextPrompt placeholderUser;
 	private TextPrompt placeholderPassword;
 	private TextPrompt placeholderMail;
-	private TextPrompt placeholderPassword2;
+//	private TextPrompt placeholderPassword2;
 	
 	public InterfazRegistroUsuario() {
 		
@@ -74,6 +76,7 @@ public class InterfazRegistroUsuario extends JPanel{
 		add(campos, BorderLayout.CENTER);
 		
 		bVolver.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				tfUser.setText(null);
 				tfPassword.setText(null);

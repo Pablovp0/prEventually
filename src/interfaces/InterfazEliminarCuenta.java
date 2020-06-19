@@ -14,11 +14,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controladores.CntrlEliminarCuenta;
-import controladores.CntrlInicioSesion;
 import pruebas.PRUEBATOTAL;
 
 public class InterfazEliminarCuenta extends JPanel{
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	public static String BT_INICIAR_SESION_ACCION_COMMAND = "BT_INICIAR_SESION_ACCION_COMMAND";
 
 	private JButton bEliminarCuenta;
@@ -55,6 +57,7 @@ public class InterfazEliminarCuenta extends JPanel{
 		add(campos, BorderLayout.CENTER);
 
 		bVolver.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				tfPassword.setText(null);
 				

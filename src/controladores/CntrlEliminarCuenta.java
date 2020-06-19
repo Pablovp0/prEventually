@@ -22,6 +22,7 @@ public class CntrlEliminarCuenta implements ActionListener{
 		iEcPanel = ec;
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		Sesion s = CntrlInicioSesion.getSesion();

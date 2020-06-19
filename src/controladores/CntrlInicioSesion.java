@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import interfaces.InterfazInicioSesion;
 import prEventually.ConexionConBaseDeDatos;
 import prEventually.Sesion;
-import prEventually.Usuario;
 import pruebas.PRUEBATOTAL;
 
 public class CntrlInicioSesion implements ActionListener {
@@ -31,6 +30,7 @@ public class CntrlInicioSesion implements ActionListener {
         	    JOptionPane.ERROR_MESSAGE);
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		String usuario = iniPanel.getUsuario().getText();
@@ -51,6 +51,8 @@ public class CntrlInicioSesion implements ActionListener {
 			
 				iniPanel.getUsuario().setText(null);
 				iniPanel.getContra().setText(null);
+				
+				PRUEBATOTAL.setVentanaTamaño(800, 597);
 				
 		} else {
 			popUpError(cardParent, "Usuario o contrasena incorrectos");

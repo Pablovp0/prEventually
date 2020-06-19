@@ -10,10 +10,8 @@ import javax.swing.JPanel;
 import interfaces.InterfazCrearEvento;
 import interfaces.InterfazListaEventos;
 import interfaces.InterfazPrincipal;
-import interfaces.InterfazRegistroUsuario;
 import prEventually.ConexionConBaseDeDatos;
 import prEventually.Evento;
-import prEventually.Usuario;
 import pruebas.PRUEBATOTAL;
 
 public class CntrlCrearEvento implements ActionListener{

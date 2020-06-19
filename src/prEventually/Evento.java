@@ -81,6 +81,7 @@ public class Evento {
 		this.organizador = organizador;
 	}
 	
+	@Override
 	public String toString() {
 		return nombre;
 	}

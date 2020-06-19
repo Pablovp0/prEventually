@@ -10,7 +10,6 @@ import interfaces.InterfazListaEventos;
 import interfaces.InterfazPrincipal;
 import prEventually.ConexionConBaseDeDatos;
 import prEventually.Evento;
-import prEventually.Participación;
 import prEventually.Sesion;
 
 public class CntrlCancelarParticipacion implements ActionListener{
@@ -23,6 +22,7 @@ public class CntrlCancelarParticipacion implements ActionListener{
 		ip = i;
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		InterfazListaEventos iLePanel = ip.getPanelListaEventos();
 		Sesion s = CntrlInicioSesion.getSesion();
@@ -42,6 +42,7 @@ public class CntrlCancelarParticipacion implements ActionListener{
 	        	    "Tu participacion en el evento '" + ev.getNombre() + "' ha sido cancelada.",
 	        	    "Participación cancelada",
 	        	    JOptionPane.DEFAULT_OPTION);
+			iLePanel.actualizarListaParticipantes(ev.getId());
 		}
 		
 	}

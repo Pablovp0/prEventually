@@ -1,7 +1,5 @@
 package prEventually;
 
-import java.util.Date;
-
 public class Sesion{
 	String nusuario;
 	String contraseña;

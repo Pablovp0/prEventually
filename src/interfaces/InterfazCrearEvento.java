@@ -9,14 +9,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controladores.CntrlCrearEvento;
-import controladores.CntrlInicioSesion;
 import pruebas.PRUEBATOTAL;
 
 public class InterfazCrearEvento extends JPanel{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private JButton bCrear;
 	private JButton bVolver;
@@ -65,6 +65,7 @@ public class InterfazCrearEvento extends JPanel{
 		add(campos, BorderLayout.CENTER);
 		
 		bVolver.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				tfNombre.setText(null);
 				tfFecha.setText(null);

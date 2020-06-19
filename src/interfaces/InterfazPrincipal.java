@@ -2,7 +2,6 @@ package interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,6 +17,8 @@ import prEventually.*;
 import pruebas.PRUEBATOTAL;
 
 public class InterfazPrincipal extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private JButton bCrearEvento = new JButton("Crear evento");
 	private JButton bEliminar = new JButton("Eliminar cuenta");
@@ -76,6 +77,7 @@ public class InterfazPrincipal extends JPanel {
 		panelPerfil.add(bCerrarSesion);
 		
 		bCerrarSesion.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JPanel cardParent = (JPanel) InterfazPrincipal.this.getParent();
 				CardLayout cl = (CardLayout)(cardParent.getLayout());
@@ -84,6 +86,7 @@ public class InterfazPrincipal extends JPanel {
 		});
 		
 		bEliminar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JPanel cardParent = (JPanel) InterfazPrincipal.this.getParent();
 				CardLayout cl = (CardLayout)(cardParent.getLayout());

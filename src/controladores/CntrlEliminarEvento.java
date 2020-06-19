@@ -23,6 +23,7 @@ public class CntrlEliminarEvento implements ActionListener{
 		ipPanel = i;
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		InterfazListaEventos iLePanel = ipPanel.getPanelListaEventos();
 		Sesion s = CntrlInicioSesion.getSesion();
@@ -34,7 +35,6 @@ public class CntrlEliminarEvento implements ActionListener{
 			
 			conexionBD.eliminarEvento(eventoSeleccionado.getId());
 			iLePanel.actualizarListaEventos();
-			iLePanel.getcbEventos().removeAllItems();
 			
 			JOptionPane.showMessageDialog(cardParent,
 	        	    "Has cancelado el evento seleccionado.",
@@ -43,7 +43,7 @@ public class CntrlEliminarEvento implements ActionListener{
 			
 		} else {
 			JOptionPane.showMessageDialog(cardParent,
-	        	    "No puedes eliminar este evento porque no eres el organizador.",
+	        	    "No puedes eliminar este evento porque no eres el organizador.!!",
 	        	    "Error",
 	        	    JOptionPane.ERROR_MESSAGE);
 			
