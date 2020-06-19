@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import interfaces.InterfazCrearEvento;
+import interfaces.InterfazListaEventos;
+import interfaces.InterfazPrincipal;
 import interfaces.InterfazRegistroUsuario;
 import prEventually.ConexionConBaseDeDatos;
 import prEventually.Evento;
@@ -18,10 +20,12 @@ public class CntrlCrearEvento implements ActionListener{
 	
 	ConexionConBaseDeDatos conexionBD;
 	InterfazCrearEvento cePanel;
+	InterfazPrincipal ip;
 	
-	public CntrlCrearEvento(ConexionConBaseDeDatos connbd, InterfazCrearEvento ce) {
+	public CntrlCrearEvento(ConexionConBaseDeDatos connbd, InterfazCrearEvento ce, InterfazPrincipal i) {
 		conexionBD = connbd;
 		cePanel = ce;
+		ip=i;
 	}
 	public void popUpError(JPanel parent, String err) {
 		JOptionPane.showMessageDialog(parent,
@@ -44,6 +48,8 @@ public class CntrlCrearEvento implements ActionListener{
 				cePanel.getLugar().getText(),
 				CntrlInicioSesion.getSesion().getNusuario());
 		
+		InterfazListaEventos iLePanel = ip.getPanelListaEventos();
+		
 		if(ev.getFecha() == null || ev.getFecha().length()==0 ||
 				ev.getLugar() == null || ev.getLugar().length()==0 ||
 				ev.getNombre()==null || ev.getNombre().length()==0) {
@@ -51,12 +57,15 @@ public class CntrlCrearEvento implements ActionListener{
 		}else if(conexionBD.existeEvento(ev.getNombre())){
 			popUpError(cePanel, "Ya existe un evento con ese nombre");
 		}else {
+			
 			int eventoID = conexionBD.crearEvento(ev);
 			ev.setId(eventoID);
 			popUp(cePanel, "Evento creado");
 			cePanel.getNombre().setText(null);
 			cePanel.getFecha().setText(null);
 			cePanel.getLugar().setText(null);
+			
+			iLePanel.actualizarListaEventos();
 			
 			//mismo efecto que volver
 			JPanel cardParent = (JPanel) cePanel.getParent();

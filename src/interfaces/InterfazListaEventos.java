@@ -20,26 +20,26 @@ import controladores.CntrlEliminarEvento;
 import controladores.CntrlParticiparEvento;
 import prEventually.*;
 
-public class InterfazListaEventos extends JPanel{
-	
+public class InterfazListaEventos extends JPanel {
+
 	private List<Evento> eventos;
 	private List<String> participantes;
-	
+
 	private JLabel lbSlcEvento;
 	private JComboBox<Evento> cbEventos;
 	private JPanel pnSlcEvento;
-	
+
 	private JLabel lbParticipantesEventoSeleccionado;
 	private DefaultListModel<String> lmParticipantesEventoSeleccionado;
 	private JList<String> lstParticipantesEventoSeleccionado;
 	private JPanel pnListaParticipantes;
-	
+
 	private JButton btParticipar;
 	private JButton btCancelarParticipacion;
 	private JButton btEliminarEvento;
 	private JButton btExpulsarParticipante;
 	private JPanel pnBotones;
-	
+
 	private JLabel lbFecha;
 	private JLabel lbFechaEvento;
 	private JLabel lbLugar;
@@ -47,7 +47,7 @@ public class InterfazListaEventos extends JPanel{
 	private JLabel lbOrganizador;
 	private JLabel lbOrganizadorEvento;
 	private JPanel pnInfoEvento;
-	
+
 	public InterfazListaEventos (List<Evento> le, List<String> lu) {
 		eventos = le;
 		participantes = lu;
@@ -82,7 +82,7 @@ public class InterfazListaEventos extends JPanel{
 		pnInfoEvento.add(lbOrganizadorEvento);
 		add(pnInfoEvento);
 
-		// panel de listas de jugadores
+		// panel de listas de participantes
 		pnListaParticipantes = new JPanel();
 		pnListaParticipantes.setLayout(new GridLayout(2, 1));
 		lbParticipantesEventoSeleccionado = new JLabel("Participantes del evento seleccionado");
@@ -110,58 +110,76 @@ public class InterfazListaEventos extends JPanel{
 		
 		add(pnBotones);
 		
+		//Actualiza informacion evento y participantes al seleccionar evento en CB
 		cbEventos.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {
-			      Evento ev = (Evento)cbEventos.getSelectedItem();
-			      lbFechaEvento.setText(ev.getFecha());
-			      lbLugarEvento.setText(ev.getLugar());
-			      lbOrganizadorEvento.setText(ev.getOrganizador());
-			      
+				  if(cbEventos.getItemCount() != 0) {
+					  
+
+				      Evento ev = (Evento)cbEventos.getSelectedItem();
+				      lbFechaEvento.setText(ev.getFecha());
+				      lbLugarEvento.setText(ev.getLugar());
+				      lbOrganizadorEvento.setText(ev.getOrganizador());
+				      
+				      actualizarListaParticipantes(ev.getId());
+				     
+				  }
 			   }
 			});
 		
 	}
-	
+
 	public JLabel getlbFechaEvento() {
 		return lbFechaEvento;
 	}
-	
+
 	public JLabel getlbLugarEvento() {
 		return lbLugarEvento;
 	}
-	
+
 	public JLabel getlbOrganizadorEvento() {
 		return lbOrganizadorEvento;
 	}
-	
+
 	public JComboBox<Evento> getcbEventos() {
 		return cbEventos;
 	}
-	
+
 	public void actualizarListaEventos() {
 		ConexionConBaseDeDatos accesoBD;
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
-		
+
 		eventos = accesoBD.listaEventos();
-		
-		cbEventos = new JComboBox<Evento>();
+
+		cbEventos.removeAllItems();
 		for (Evento e : eventos) {
 			cbEventos.addItem(e);
+		}
+	}
+
+	public void actualizarListaParticipantes(int idEv) {
+		ConexionConBaseDeDatos accesoBD;
+		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
+		participantes = accesoBD.listaParticipantesDeUnEvento(idEv);
+		
+		lmParticipantesEventoSeleccionado.removeAllElements();
+		
+		for (String s : participantes) {
+			lmParticipantesEventoSeleccionado.addElement(s);
 		}
 		
 	}
 	
-	public void controladorEliminarEvento (CntrlEliminarEvento c) {
+	public void controladorEliminarEvento(CntrlEliminarEvento c) {
 		btEliminarEvento.addActionListener(c);
 	}
-	
-	public void controladorParticiparEvento (CntrlParticiparEvento c) {
+
+	public void controladorParticiparEvento(CntrlParticiparEvento c) {
 		btParticipar.addActionListener(c);
 	}
-	
-	public void controladorCancelarParticipacion (CntrlCancelarParticipacion c) {
+
+	public void controladorCancelarParticipacion(CntrlCancelarParticipacion c) {
 		btCancelarParticipacion.addActionListener(c);
 	}
-	
-	
+
 }

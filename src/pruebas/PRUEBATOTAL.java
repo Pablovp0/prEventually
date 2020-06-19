@@ -60,7 +60,7 @@ public class PRUEBATOTAL {
 		CntrlInicioSesion cIni = new CntrlInicioSesion(accesoBD, in);
 		CntrlEliminarCuenta cEc = new CntrlEliminarCuenta(accesoBD, iec);
 		CntrlBotonCrearEvento cBce = new CntrlBotonCrearEvento(ip);
-		CntrlCrearEvento cCe = new CntrlCrearEvento(accesoBD, ice);
+		CntrlCrearEvento cCe = new CntrlCrearEvento(accesoBD, ice, ip);
 		CntrlEliminarEvento cEe = new CntrlEliminarEvento(accesoBD, ip);
 		CntrlParticiparEvento cPe = new CntrlParticiparEvento(accesoBD, ip);
 		CntrlCancelarParticipacion cCp = new CntrlCancelarParticipacion(accesoBD, ip);
