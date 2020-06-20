@@ -63,4 +63,8 @@ public class CntrlInicioSesion implements ActionListener {
 	public static Sesion getSesion() {
 		return s;
 	}
+	
+	public static void setSesion(String nU, String pass) {
+		s = new Sesion(nU, pass);
+	}
 }

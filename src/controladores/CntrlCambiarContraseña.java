@@ -47,6 +47,8 @@ public class CntrlCambiarContraseña implements ActionListener{
 			ccl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
 			iCc.getContra().setText(null);
 			iCc.getContraNueva().setText(null);
+			PRUEBATOTAL.setVentanaTamaño(800, 600);
+			CntrlInicioSesion.setSesion(s.getNusuario(), contrasenaNueva);
 			
 			
 		}

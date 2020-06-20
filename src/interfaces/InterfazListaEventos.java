@@ -29,6 +29,7 @@ public class InterfazListaEventos extends JPanel {
 
 	private JLabel lbSlcEvento;
 	private JComboBox<Evento> cbEventos;
+	private JButton btActualizar;
 	private JPanel pnSlcEvento;
 
 	private JLabel lbParticipantesEventoSeleccionado;
@@ -57,6 +58,7 @@ public class InterfazListaEventos extends JPanel {
 		setLayout(new GridLayout(0, 1));
 		// panel de seleccion de eventos
 		lbSlcEvento = new JLabel("Selecciona Evento");
+		btActualizar = new JButton("Actualizar");
 		cbEventos = new JComboBox<Evento>();
 		for (Evento e : eventos) {
 			cbEventos.addItem(e);
@@ -64,7 +66,10 @@ public class InterfazListaEventos extends JPanel {
 		pnSlcEvento = new JPanel();
 		pnSlcEvento.add(lbSlcEvento);
 		pnSlcEvento.add(cbEventos);
+		pnSlcEvento.add(btActualizar);
 		add(pnSlcEvento);
+		
+		
 		
 		//panel informacion del evento
 		
@@ -127,6 +132,14 @@ public class InterfazListaEventos extends JPanel {
 				      actualizarListaParticipantes(ev.getId());
 				     
 				  }
+			   }
+			});
+		
+		btActualizar.addActionListener(new ActionListener() {
+			   @Override
+			public void actionPerformed(ActionEvent e) {
+				      Evento ev = (Evento)cbEventos.getSelectedItem();
+				      actualizarListaParticipantes(ev.getId());
 			   }
 			});
 		
