@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import controladores.CntrlActualizar;
 import controladores.CntrlBotonCrearEvento;
 import controladores.CntrlCambiarContraseña;
 import controladores.CntrlCancelarParticipacion;
@@ -71,6 +72,7 @@ public class PRUEBATOTAL {
 		CntrlCancelarParticipacion cCp = new CntrlCancelarParticipacion(accesoBD, ip);
 		CntrlExpulsarParticipantes cEp = new CntrlExpulsarParticipantes(accesoBD, ip);
 		CntrlCambiarContraseña cCc = new CntrlCambiarContraseña(accesoBD, icc);
+		CntrlActualizar cA = new CntrlActualizar(accesoBD, ip);
 		ice.controladorCrear(cCe);
 		ip.controladorBotonCrearEvento(cBce);
 		i.controlador(cReg);
@@ -81,7 +83,7 @@ public class PRUEBATOTAL {
 		ip.getPanelListaEventos().controladorCancelarParticipacion(cCp); 
 		ip.getPanelListaEventos().controladorExpulsarParticipante(cEp);
 		icc.controlador(cCc);
-		
+		ip.getPanelListaEventos().controladorActualizar(cA);
 	}
 	public static void setVentanaTamaño(int w, int h){
 		ventana.setSize(w, h);

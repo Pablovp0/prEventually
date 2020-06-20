@@ -69,6 +69,7 @@ public class CntrlCrearEvento implements ActionListener{
 			JPanel cardParent = (JPanel) cePanel.getParent();
 			CardLayout ccl = (CardLayout) (cardParent.getLayout());
 			ccl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
+			PRUEBATOTAL.setVentanaTamaño(800, 600);
 		}
 		
 	}

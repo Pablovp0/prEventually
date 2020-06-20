@@ -74,6 +74,7 @@ public class InterfazCrearEvento extends JPanel{
 				JPanel cardParent = (JPanel) InterfazCrearEvento.this.getParent();
 				CardLayout ccl = (CardLayout) (cardParent.getLayout());
 				ccl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
+				PRUEBATOTAL.setVentanaTamaño(800, 600);
 			}
 		});
 		

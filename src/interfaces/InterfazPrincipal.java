@@ -12,7 +12,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
 
+import controladores.CntrlActualizar;
 import controladores.CntrlBotonCrearEvento;
 import prEventually.*;
 import pruebas.PRUEBATOTAL;
@@ -46,7 +48,8 @@ public class InterfazPrincipal extends JPanel {
 
 		JComponent panel2 = crearPanelPerfil();
 		tabbedPane.addTab("Perfil Usuario", null, panel2, "Cierre su sesión y elimine su cuenta.");
-
+		
+		
 		add(tabbedPane);
 	}
 
@@ -69,6 +72,16 @@ public class InterfazPrincipal extends JPanel {
 		
 		panelListaEventos = new InterfazListaEventos(le, lu);
 		
+		panelListaEventos.getBtCrearEvento().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JPanel cardParent = (JPanel) InterfazPrincipal.this.getParent();
+				CardLayout cl = (CardLayout)(cardParent.getLayout());
+		        cl.show(cardParent, PRUEBATOTAL.PANELCREAREVENTO);
+		        PRUEBATOTAL.setVentanaTamaño(350, 150);
+			}
+		});
+		
 		
 		return panelListaEventos;
 	}
@@ -83,6 +96,7 @@ public class InterfazPrincipal extends JPanel {
 		panelPerfil.add(bCerrarSesion);
 		
 		panelPerfil.add(bCambiarContraseña);
+		
 		
 		bCerrarSesion.addActionListener(new ActionListener() {
 			@Override
@@ -125,6 +139,8 @@ public class InterfazPrincipal extends JPanel {
 	public InterfazListaEventos getPanelListaEventos() {
 		return panelListaEventos;
 	}
+	
+	
 	
 	
 }
