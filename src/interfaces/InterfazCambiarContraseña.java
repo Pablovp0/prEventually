@@ -14,12 +14,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controladores.CntrlCambiarContraseña;
-import pruebas.PRUEBATOTAL;
+import main.Eventually;
 
-public class InterfazCambiarContraseña extends JPanel{
-	
+public class InterfazCambiarContraseña extends JPanel {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private JButton bCambiarContraseña;
 	private JButton bVolver;
 	private JPasswordField tfPassword;
@@ -27,22 +27,22 @@ public class InterfazCambiarContraseña extends JPanel{
 	private JPasswordField tfPasswordNueva;
 	private TextPrompt placeholderPasswordNueva;
 	private JLabel lEtiqueta;
-	
+
 	public InterfazCambiarContraseña() {
-		
-		bCambiarContraseña = new JButton("Confirmar cambio.");
-		bVolver = new JButton("Volver.");
+
+		bCambiarContraseña = new JButton("Confirmar cambio");
+		bVolver = new JButton("Volver");
 		tfPassword = new JPasswordField(20);
 		tfPasswordNueva = new JPasswordField(20);
-		lEtiqueta = new JLabel("Escribe tu antigua y nueva contraseña.");
-		
+		lEtiqueta = new JLabel("Escribe tu antigua y nueva contraseña");
+
 		placeholderPassword = new TextPrompt("Contraseña antigua", tfPassword);
 		placeholderPassword.changeAlpha(0.75f);
 		placeholderPassword.changeStyle(Font.ITALIC);
 		placeholderPasswordNueva = new TextPrompt("Contraseña nueva", tfPasswordNueva);
 		placeholderPasswordNueva.changeAlpha(0.75f);
 		placeholderPasswordNueva.changeStyle(Font.ITALIC);
-		
+
 		setLayout(new BorderLayout());
 
 		JPanel botones = new JPanel();
@@ -59,34 +59,32 @@ public class InterfazCambiarContraseña extends JPanel{
 
 		add(botones, BorderLayout.SOUTH);
 		add(campos, BorderLayout.CENTER);
-		
+
 		bVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tfPassword.setText(null);
-				
+
 				JPanel cardParent = (JPanel) InterfazCambiarContraseña.this.getParent();
 				CardLayout cl = (CardLayout) (cardParent.getLayout());
-				cl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
+				cl.show(cardParent, Eventually.PANELPRINCIPAL);
 				tfPassword.setText(null);
 				tfPasswordNueva.setText(null);
-				PRUEBATOTAL.setVentanaTamaño(800, 600);
+				Eventually.setVentanaTamaño(980, 600);
 			}
 		});
-		
-		
-		
+
 	}
-	
+
 	public JTextField getContra() {
-			return tfPassword;
-		}
-		
+		return tfPassword;
+	}
+
 	public JTextField getContraNueva() {
 		return tfPasswordNueva;
-		}
-	
-	public void controlador (CntrlCambiarContraseña c) {
+	}
+
+	public void controlador(CntrlCambiarContraseña c) {
 		bCambiarContraseña.addActionListener(c);
 	}
 }

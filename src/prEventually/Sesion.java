@@ -1,9 +1,9 @@
 package prEventually;
 
-public class Sesion{
+public class Sesion {
 	String nusuario;
 	String contraseña;
-	
+
 	public Sesion(String n, String c) {
 		nusuario = n;
 		contraseña = c;
@@ -16,5 +16,5 @@ public class Sesion{
 	public String getContraseña() {
 		return contraseña;
 	}
-	
+
 }

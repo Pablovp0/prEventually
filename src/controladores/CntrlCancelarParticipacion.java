@@ -12,11 +12,11 @@ import prEventually.ConexionConBaseDeDatos;
 import prEventually.Evento;
 import prEventually.Sesion;
 
-public class CntrlCancelarParticipacion implements ActionListener{
-	
+public class CntrlCancelarParticipacion implements ActionListener {
+
 	InterfazPrincipal ip;
 	ConexionConBaseDeDatos conexionBD;
-	
+
 	public CntrlCancelarParticipacion(ConexionConBaseDeDatos bd, InterfazPrincipal i) {
 		conexionBD = bd;
 		ip = i;
@@ -28,23 +28,20 @@ public class CntrlCancelarParticipacion implements ActionListener{
 		Sesion s = CntrlInicioSesion.getSesion();
 		Evento ev = (Evento) (iLePanel.getcbEventos().getSelectedItem());
 		JPanel cardParent = (JPanel) ip.getParent();
-		
-		if(!ev.usuarioParticipa(s.getNusuario())) {
-			JOptionPane.showMessageDialog(cardParent,
-	        	    "No participas en el evento '" + ev.getNombre() + "'.",
-	        	    "Error",
-	        	    JOptionPane.ERROR_MESSAGE);
-		}else {
+
+		if (!ev.usuarioParticipa(s.getNusuario())) {
+			JOptionPane.showMessageDialog(cardParent, "No participas en el evento '" + ev.getNombre() + "'.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		} else {
 			ev.dardeBajaUsuario(s.getNusuario());
 			conexionBD.eliminarParticipacion(s.getNusuario(), ev.getId());
 			System.out.println(ev.getParticipantes());
 			JOptionPane.showMessageDialog(cardParent,
-	        	    "Tu participacion en el evento '" + ev.getNombre() + "' ha sido cancelada.",
-	        	    "Participación cancelada",
-	        	    JOptionPane.DEFAULT_OPTION);
+					"Tu participacion en el evento '" + ev.getNombre() + "' ha sido cancelada.",
+					"Participación cancelada", JOptionPane.DEFAULT_OPTION);
 			iLePanel.actualizarListaParticipantes(ev.getId());
 		}
-		
+
 	}
-	
+
 }

@@ -1,6 +1,6 @@
 package pruebasJUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ class ExisteUsuarioTest {
 		boolean res = accesoBD.existeUsuario("pepe");
 		assertEquals(true, res);
 	}
-	
+
 	@Test
 	public void TestNoExisteUsuario() {
 		ConexionConBaseDeDatos accesoBD;

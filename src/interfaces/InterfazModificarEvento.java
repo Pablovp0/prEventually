@@ -12,14 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controladores.CntrlCrearEvento;
-import prEventually.Evento;
-import pruebas.PRUEBATOTAL;
+import controladores.CntrlModificarEvento;
+import main.Eventually;
 
-public class InterfazModificarEvento extends JPanel{
-	
+public class InterfazModificarEvento extends JPanel {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private JButton bModificar;
 	private JButton bVolver;
 	private JLabel lbNombre;
@@ -27,7 +26,6 @@ public class InterfazModificarEvento extends JPanel{
 	private JTextField tfLugar;
 	private TextPrompt phFecha;
 	private TextPrompt phLugar;
-
 
 	public InterfazModificarEvento() {
 
@@ -58,23 +56,22 @@ public class InterfazModificarEvento extends JPanel{
 		campos.add(tfFecha);
 		campos.add(tfLugar);
 
-
 		add(botones, BorderLayout.SOUTH);
 		add(campos, BorderLayout.CENTER);
-		
+
 		bVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tfFecha.setText(null);
 				tfLugar.setText(null);
-				
+
 				JPanel cardParent = (JPanel) InterfazModificarEvento.this.getParent();
 				CardLayout ccl = (CardLayout) (cardParent.getLayout());
-				ccl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
-				PRUEBATOTAL.setVentanaTamaño(800, 600);
+				ccl.show(cardParent, Eventually.PANELPRINCIPAL);
+				Eventually.setVentanaTamaño(980, 600);
 			}
 		});
-		
+
 	}
 
 	public JLabel getNombre() {
@@ -84,14 +81,13 @@ public class InterfazModificarEvento extends JPanel{
 	public JTextField getFecha() {
 		return tfFecha;
 	}
-	
+
 	public JTextField getLugar() {
 		return tfLugar;
 	}
-	
-	
-	public void controladorModificar (CntrlCrearEvento c) {
+
+	public void controladorModificar(CntrlModificarEvento c) {
 		bModificar.addActionListener(c);
 	}
-	
+
 }

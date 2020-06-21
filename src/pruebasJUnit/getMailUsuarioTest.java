@@ -1,6 +1,6 @@
 package pruebasJUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ class getMailUsuarioTest {
 		String mail = accesoBD.getMailUsuario("pepe");
 		assertEquals("pepe@", mail);
 	}
-	
+
 	@Test
 	public void testgetWrongMailUsuario() {
 		ConexionConBaseDeDatos accesoBD;

@@ -1,19 +1,20 @@
 package prEventually;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
 public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
-	
+
 	private Connection conn;
-	
+
 	private static ConexionBaseDeDatosJDBC instanciaInterfaz = null;
-	
+
 	private ConexionBaseDeDatosJDBC() {
 		try {
 			// create connection for database called DBB_SCHEMA in a server installed in
@@ -25,14 +26,14 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static ConexionBaseDeDatosJDBC getInstance() {
 		if (instanciaInterfaz == null) {
 			instanciaInterfaz = new ConexionBaseDeDatosJDBC();
 		}
 		return instanciaInterfaz;
 	}
-	
+
 	@Override
 	public List<Evento> listaEventos() {
 		ArrayList<Evento> lEventos = new ArrayList<>();
@@ -50,7 +51,7 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 					String lugar = rs.getString(3);
 					String organizador = rs.getString(4);
 					int id = rs.getInt(5);
-					
+
 					Evento ev = new Evento(id, nombre, fecha, lugar, organizador);
 					lEventos.add(ev);
 					List<String> participantesEvento = listaParticipantesDeUnEvento(ev.getId());
@@ -68,7 +69,7 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		}
 		return lEventos;
 	}
-	
+
 	@Override
 	public List<String> listaParticipantesDeUnEvento(int idEv) {
 		ArrayList<String> lParticipantes = new ArrayList<>();
@@ -91,7 +92,28 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		}
 		return lParticipantes;
 	}
-	
+
+	@Override
+	public void modificarEvento(String f, String l, int i) {
+		String fecha = f;
+		String lugar = l;
+		int id = i;
+		String updateBody = "UPDATE eventos SET fecha = ? , lugar = ? WHERE id = ?";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(updateBody);
+			preparedStatement.setString(1, fecha);
+			preparedStatement.setString(2, lugar);
+			preparedStatement.setInt(3, id);
+
+			@SuppressWarnings("unused")
+			int res = preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+	}
+
+	@Override
 	public String getMailUsuario(String nU) {
 		String selectQueryBody = "SELECT mail FROM users WHERE user=?";
 		String nUsuario = nU;
@@ -109,56 +131,54 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 		}
 		return uMail;
 	}
-	
+
 	@Override
 	public int registrarNuevoUsuario(Usuario u) {
 		int userID = 0;
 		String insertBody = "INSERT INTO users (user, password, mail ) VALUES (?, ?, ?)";
 		try {
-			
-			
+
 			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, u.getUser());
 			preparedStatement.setString(2, u.getPassword());
 			preparedStatement.setString(3, u.getMail());
-			
+
 			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 			ResultSet rs = preparedStatement.getGeneratedKeys();
-			while(rs.next()) {
+			while (rs.next()) {
 				userID = rs.getInt(1);
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return userID;
 	}
-	
+
 	@Override
 	public int crearEvento(Evento e) {
 		int eventID = 0;
 		String insertBody = "INSERT INTO eventos (nombre, fecha, lugar, organizador) VALUES (?, ?, ?, ?)";
 		try {
-			
-			
+
 			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, e.getNombre());
 			preparedStatement.setString(2, e.getFecha());
 			preparedStatement.setString(3, e.getLugar());
 			preparedStatement.setString(4, e.getOrganizador());
-			
+
 			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 			ResultSet rs = preparedStatement.getGeneratedKeys();
-			while(rs.next()) {
+			while (rs.next()) {
 				eventID = rs.getInt(1);
 			}
-		}catch(SQLException e1) {
+		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 		return eventID;
 	}
-	
+
 	@Override
 	public void eliminarEvento(int idEvento) {
 		int n = idEvento;
@@ -173,7 +193,22 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 			ex.printStackTrace();
 		}
 	}
-	
+
+	@Override
+	public void eliminarParticipantesEvento(int idEvento) {
+		int n = idEvento;
+		String deleteBody = "DELETE FROM participaciones WHERE (IdEvento = ?)";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+			preparedStatement.setInt(1, n);
+			@SuppressWarnings("unused")
+			int res = preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+	}
+
 	@Override
 	public Sesion iniciarSesion(String usuario, String contrasena) {
 		Sesion s = null;
@@ -183,58 +218,55 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 			estatamentoPreparado.setString(1, usuario);
 			estatamentoPreparado.setString(2, contrasena);
 			ResultSet rs = estatamentoPreparado.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				s = new Sesion(usuario, contrasena);
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return s;
 	}
-	
+
 	public boolean participarEvento(String usuario, String evento) {
 		boolean ok = false;
-			String insertBody = "SELECT * FROM users where user=? and password=?";
-			try {
-				PreparedStatement estatamentoPreparado = conn.prepareStatement(insertBody);
-				estatamentoPreparado.setString(1, usuario);
-				estatamentoPreparado.setString(2, evento);
-				ResultSet rs = estatamentoPreparado.executeQuery();
-				if(rs.next()) {
-					ok = true;
-				}
-			}catch(SQLException e) {
-				e.printStackTrace();
+		String insertBody = "SELECT * FROM users where user=? and password=?";
+		try {
+			PreparedStatement estatamentoPreparado = conn.prepareStatement(insertBody);
+			estatamentoPreparado.setString(1, usuario);
+			estatamentoPreparado.setString(2, evento);
+			ResultSet rs = estatamentoPreparado.executeQuery();
+			if (rs.next()) {
+				ok = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return ok;
 	}
-	
-	
-	
+
 	@Override
 	public int añadirParticipante(Participación p) {
 		String insertBody = "INSERT INTO participaciones (IdEvento, NombreParticipante) VALUES (?, ?)";
 		int participacionID = 0;
 		try {
-			
-			
+
 			PreparedStatement preparedStatement = conn.prepareStatement(insertBody, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, p.getIdEv());
 			preparedStatement.setString(2, p.getnU());
-			
+
 			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 			ResultSet rs = preparedStatement.getGeneratedKeys();
-			while(rs.next()) {
+			while (rs.next()) {
 				participacionID = rs.getInt(1);
 			}
-		}catch(SQLException e1) {
+		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 		return participacionID;
 
 	}
-	
+
 	@Override
 	public void eliminarParticipacion(String nUsuario, int idEv) {
 		String deleteBody = "DELETE FROM participaciones WHERE (NombreParticipante = ?) AND (IdEvento = ?)";
@@ -248,9 +280,9 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
-		
+
 	}
-	
+
 	@Override
 	public void eliminarCuenta(String nUsuario) {
 		String user = nUsuario;
@@ -264,9 +296,10 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
-		
+
 	}
-	
+
+	@Override
 	public void actualizarContraseña(String nUsuario, String contraseñaNueva) {
 		String user = nUsuario;
 		String pass = contraseñaNueva;
@@ -275,7 +308,7 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 			PreparedStatement preparedStatement = conn.prepareStatement(updateBody);
 			preparedStatement.setString(1, pass);
 			preparedStatement.setString(2, user);
-			
+
 			@SuppressWarnings("unused")
 			int res = preparedStatement.executeUpdate();
 		} catch (SQLException ex) {
@@ -283,47 +316,43 @@ public class ConexionBaseDeDatosJDBC extends ConexionConBaseDeDatos {
 			ex.printStackTrace();
 		}
 	}
-	
-	
-	
+
 	@Override
 	public boolean existeUsuario(String usuario) {
-		boolean existe=false;
-		
+		boolean existe = false;
+
 		String insertBody = "SELECT * FROM users where user=?";
 		try {
 			PreparedStatement estatamentoPreparado = conn.prepareStatement(insertBody);
 			estatamentoPreparado.setString(1, usuario);
 			ResultSet rs = estatamentoPreparado.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				existe = true;
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return existe;
 	}
-	
+
 	@Override
 	public boolean existeEvento(String evento) {
-		boolean existe=false;
-		
+		boolean existe = false;
+
 		String insertBody = "SELECT * FROM eventos where nombre=?";
 		try {
 			PreparedStatement estatamentoPreparado = conn.prepareStatement(insertBody);
 			estatamentoPreparado.setString(1, evento);
 			ResultSet rs = estatamentoPreparado.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				existe = true;
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return existe;
 	}
 
-	
-	
 }

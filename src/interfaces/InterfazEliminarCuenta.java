@@ -14,11 +14,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controladores.CntrlEliminarCuenta;
-import pruebas.PRUEBATOTAL;
+import main.Eventually;
 
-public class InterfazEliminarCuenta extends JPanel{
-	
-	
+public class InterfazEliminarCuenta extends JPanel {
+
 	private static final long serialVersionUID = 1L;
 
 	public static String BT_INICIAR_SESION_ACCION_COMMAND = "BT_INICIAR_SESION_ACCION_COMMAND";
@@ -34,7 +33,7 @@ public class InterfazEliminarCuenta extends JPanel{
 		bEliminarCuenta = new JButton("Eliminar cuenta");
 		bVolver = new JButton("Volver");
 		tfPassword = new JPasswordField(20);
-		lPregunta = new JLabel("Introduce tu contraseña y pulsa en 'Eliminar cuenta' para borrar tu cuenta.");
+		lPregunta = new JLabel("Introduce tu contraseña y pulsa en 'Eliminar cuenta' para borrar tu cuenta");
 
 		placeholderPassword = new TextPrompt("Contraseña", tfPassword);
 		placeholderPassword.changeAlpha(0.75f);
@@ -60,11 +59,11 @@ public class InterfazEliminarCuenta extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tfPassword.setText(null);
-				
+
 				JPanel cardParent = (JPanel) InterfazEliminarCuenta.this.getParent();
 				CardLayout cl = (CardLayout) (cardParent.getLayout());
-				cl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
-				PRUEBATOTAL.setVentanaTamaño(800, 600);
+				cl.show(cardParent, Eventually.PANELPRINCIPAL);
+				Eventually.setVentanaTamaño(980, 600);
 			}
 		});
 
@@ -73,10 +72,10 @@ public class InterfazEliminarCuenta extends JPanel{
 	public JTextField getContra() {
 		return tfPassword;
 	}
-	
-	public void controlador (CntrlEliminarCuenta c) {
+
+	public void controlador(CntrlEliminarCuenta c) {
 		bEliminarCuenta.addActionListener(c);
 		bEliminarCuenta.setActionCommand(BT_INICIAR_SESION_ACCION_COMMAND);
 	}
-	
+
 }

@@ -8,54 +8,43 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import interfaces.InterfazRegistroUsuario;
-import prEventually.*;
-import pruebas.PRUEBATOTAL;
+import main.Eventually;
+import prEventually.ConexionConBaseDeDatos;
+import prEventually.Usuario;
 
+public class CntrlRegistroUsuario implements ActionListener {
 
-
-
-	public class CntrlRegistroUsuario implements ActionListener{
-	
 	ConexionConBaseDeDatos conexionBD;
 	InterfazRegistroUsuario nuPanel;
-	
+
 	public CntrlRegistroUsuario(ConexionConBaseDeDatos connbd, InterfazRegistroUsuario nu) {
 		conexionBD = connbd;
 		nuPanel = nu;
 	}
 
 	public void popUpError(JPanel parent, String err) {
-		JOptionPane.showMessageDialog(parent,
-        	    err,
-        	    "Error",
-        	    JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(parent, err, "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	public void popUp(JPanel parent, String msj) {
-		JOptionPane.showMessageDialog(parent,
-        	    msj,
-        	    "Mensaje",
-        	    JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(parent, msj, "Mensaje", JOptionPane.PLAIN_MESSAGE);
 	}
-	
+
 	@Override
-	public void actionPerformed(ActionEvent e){
-		Usuario u = new Usuario(0,
-				nuPanel.getUser().getText(),
-				nuPanel.getMail().getText(), 
+	public void actionPerformed(ActionEvent e) {
+		Usuario u = new Usuario(0, nuPanel.getUser().getText(), nuPanel.getMail().getText(),
 				nuPanel.getPassword().getText());
 		JPanel cardParent = (JPanel) nuPanel.getParent();
-		
-		if(u.getUser()== null || u.getUser().length()==0 ||
-				u.getPassword()==null || u.getPassword().length()==0 ||
-				u.getMail()==null || u.getMail().length()==0) {
+
+		if (u.getUser() == null || u.getUser().length() == 0 || u.getPassword() == null || u.getPassword().length() == 0
+				|| u.getMail() == null || u.getMail().length() == 0) {
 			popUpError(cardParent, "Campos en blanco");
-			
-		}else if(conexionBD.existeUsuario(u.getUser())){
+
+		} else if (conexionBD.existeUsuario(u.getUser())) {
 			popUpError(cardParent, "Ya existe un usuario con ese nombre");
-		}else if(!nuPanel.getPassword().getText().equals(nuPanel.getPassword2().getText())) {
+		} else if (!nuPanel.getPassword().getText().equals(nuPanel.getPassword2().getText())) {
 			popUpError(cardParent, "Las dos contraseñas no son iguales.");
-		}else {
+		} else {
 			int usuarioID = conexionBD.registrarNuevoUsuario(u);
 			u.setIdentificador(usuarioID);
 			popUp(cardParent, "Nuevo usuario registrado");
@@ -64,11 +53,9 @@ import pruebas.PRUEBATOTAL;
 			nuPanel.getPassword().setText(null);
 			nuPanel.getPassword2().setText(null);
 			CardLayout ccl = (CardLayout) (cardParent.getLayout());
-			ccl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
+			ccl.show(cardParent, Eventually.PANELINICIOSESION);
 		}
 
 	}
-	
-	
-	
+
 }

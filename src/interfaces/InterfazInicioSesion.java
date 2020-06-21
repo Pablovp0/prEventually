@@ -15,7 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controladores.CntrlInicioSesion;
-import pruebas.PRUEBATOTAL;
+import main.Eventually;
 
 public class InterfazInicioSesion extends JPanel {
 
@@ -33,14 +33,13 @@ public class InterfazInicioSesion extends JPanel {
 
 	public InterfazInicioSesion() {
 
-		bCrearCuenta = new JButton("Crear cuenta.");
-		bLogin = new JButton("Iniciar sesión.");
+		bCrearCuenta = new JButton("Crear cuenta");
+		bLogin = new JButton("Iniciar sesión");
 		tfUser = new JTextField(20);
 		tfPassword = new JPasswordField(20);
-		
-		labelLogo = new JLabel(new ImageIcon(PRUEBATOTAL.logo));
-		
-		
+
+		labelLogo = new JLabel(new ImageIcon(Eventually.logo));
+
 		placeholderUser = new TextPrompt("Usuario", tfUser);
 		placeholderPassword = new TextPrompt("Contraseña", tfPassword);
 		placeholderUser.changeAlpha(0.75f);
@@ -70,10 +69,10 @@ public class InterfazInicioSesion extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				tfUser.setText(null);
 				tfPassword.setText(null);
-				
+
 				JPanel cardParent = (JPanel) InterfazInicioSesion.this.getParent();
 				CardLayout cl = (CardLayout) (cardParent.getLayout());
-				cl.show(cardParent, PRUEBATOTAL.PANELREGISTRO);
+				cl.show(cardParent, Eventually.PANELREGISTRO);
 			}
 		});
 
@@ -86,10 +85,10 @@ public class InterfazInicioSesion extends JPanel {
 	public JTextField getContra() {
 		return tfPassword;
 	}
-	
-	public void controlador (CntrlInicioSesion c) {
+
+	public void controlador(CntrlInicioSesion c) {
 		bLogin.addActionListener(c);
 		bLogin.setActionCommand(BT_INICIAR_SESION_ACCION_COMMAND);
 	}
-	
+
 }

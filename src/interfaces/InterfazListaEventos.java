@@ -1,6 +1,5 @@
 package interfaces;
 
-import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,13 +20,14 @@ import controladores.CntrlCancelarParticipacion;
 import controladores.CntrlEliminarEvento;
 import controladores.CntrlExpulsarParticipantes;
 import controladores.CntrlParticiparEvento;
-import prEventually.*;
-import pruebas.PRUEBATOTAL;
+import prEventually.ConexionBaseDeDatosJDBC;
+import prEventually.ConexionConBaseDeDatos;
+import prEventually.Evento;
 
 public class InterfazListaEventos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private List<Evento> eventos;
 	private List<String> participantes;
 
@@ -59,15 +59,15 @@ public class InterfazListaEventos extends JPanel {
 	private JLabel lbOrganizadorEvento;
 	private JPanel pnInfoEvento;
 
-	public InterfazListaEventos (List<Evento> le, List<String> lu) {
+	public InterfazListaEventos(List<Evento> le, List<String> lu) {
 		eventos = le;
 		participantes = lu;
 
 		setLayout(new GridLayout(0, 1));
-		
+
 		// panel de seleccion de eventos
 		lbSlcEvento = new JLabel("Selecciona Evento");
-		btActualizar = new JButton("ACTUALIZAR");
+		btActualizar = new JButton("Actualizar");
 		chbOrganizo = new JCheckBox("Eventos que organizo");
 		chbParticipo = new JCheckBox("Eventos en los que participo");
 		cbEventos = new JComboBox<Evento>();
@@ -81,11 +81,9 @@ public class InterfazListaEventos extends JPanel {
 		pnSlcEvento.add(chbOrganizo);
 		pnSlcEvento.add(chbParticipo);
 		add(pnSlcEvento);
-		
-		
-		
-		//panel informacion del evento
-		
+
+		// panel informacion del evento
+
 		lbFecha = new JLabel("Fecha: ");
 		lbFechaEvento = new JLabel("");
 		lbLugar = new JLabel("Lugar: ");
@@ -119,39 +117,38 @@ public class InterfazListaEventos extends JPanel {
 
 		// panel de botones
 		pnBotones = new JPanel();
-		this.btParticipar = new JButton("PARTICIPAR");
-		this.btCancelarParticipacion = new JButton("CANCELAR PARTICIPACION");
-		this.btEliminarEvento = new JButton("ELIMINAR EVENTO");
-		this.btExpulsarParticipante = new JButton("EXPULSAR PARTICIPANTE");
-		this.btCrearEvento = new JButton("CREAR EVENTO");
-		this.btModificarEvento = new JButton("MODIFICAR EVENTO");
+		this.btParticipar = new JButton("Participar");
+		this.btCancelarParticipacion = new JButton("Cancelar participacion");
+		this.btEliminarEvento = new JButton("Eliminar evento");
+		this.btExpulsarParticipante = new JButton("Expulsar participante");
+		this.btCrearEvento = new JButton("Crear evento");
+		this.btModificarEvento = new JButton("Modificar evento");
 		pnBotones.add(btParticipar);
 		pnBotones.add(btCancelarParticipacion);
 		pnBotones.add(btEliminarEvento);
 		pnBotones.add(btExpulsarParticipante);
 		pnBotones.add(btCrearEvento);
 		pnBotones.add(btModificarEvento);
-		
-		add(pnBotones);
-		
-		//Actualiza informacion evento y participantes al seleccionar evento en CB
-		cbEventos.addActionListener(new ActionListener() {
-			   @Override
-			public void actionPerformed(ActionEvent e) {
-				  if(cbEventos.getItemCount() != 0) {
-					  
 
-				      Evento ev = (Evento)cbEventos.getSelectedItem();
-				      lbFechaEvento.setText(ev.getFecha());
-				      lbLugarEvento.setText(ev.getLugar());
-				      lbOrganizadorEvento.setText(ev.getOrganizador());
-				      
-				      actualizarListaParticipantes(ev.getId());
-				     
-				  }
-			   }
-			});
-		
+		add(pnBotones);
+
+		// Actualiza informacion evento y participantes al seleccionar evento en CB
+		cbEventos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (cbEventos.getItemCount() != 0) {
+
+					Evento ev = (Evento) cbEventos.getSelectedItem();
+					lbFechaEvento.setText(ev.getFecha());
+					lbLugarEvento.setText(ev.getLugar());
+					lbOrganizadorEvento.setText(ev.getOrganizador());
+
+					actualizarListaParticipantes(ev.getId());
+
+				}
+			}
+		});
+
 //		btModificarEvento.addActionListener(new ActionListener() {
 //			@Override
 //			public void actionPerformed(ActionEvent e) {
@@ -161,7 +158,7 @@ public class InterfazListaEventos extends JPanel {
 //		        PRUEBATOTAL.setVentanaTamaño(350, 150);
 //			}
 //		});
-		
+
 //		btCrearEvento.addActionListener(new ActionListener() {
 //			   @Override
 //			public void actionPerformed(ActionEvent e) {
@@ -170,9 +167,7 @@ public class InterfazListaEventos extends JPanel {
 //				   ccl.show(cardParent, PRUEBATOTAL.PANELCREAREVENTO);
 //			   }
 //			});
-		
-		
-		
+
 	}
 
 	public JLabel getlbFechaEvento() {
@@ -190,19 +185,19 @@ public class InterfazListaEventos extends JPanel {
 	public JComboBox<Evento> getcbEventos() {
 		return cbEventos;
 	}
-	
+
 	public JCheckBox getChbOrganizo() {
 		return chbOrganizo;
 	}
-	
+
 	public JCheckBox getChbParticipo() {
 		return chbParticipo;
 	}
-	
+
 	public JButton getBtCrearEvento() {
 		return btCrearEvento;
 	}
-	
+
 	public JButton getBtModificarEvento() {
 		return btModificarEvento;
 	}
@@ -218,7 +213,7 @@ public class InterfazListaEventos extends JPanel {
 			cbEventos.addItem(e);
 		}
 	}
-	
+
 	public void actualizarListaEventosOrganizo(String nUsuario) {
 		ConexionConBaseDeDatos accesoBD;
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
@@ -227,12 +222,12 @@ public class InterfazListaEventos extends JPanel {
 
 		cbEventos.removeAllItems();
 		for (Evento e : eventos) {
-			if(e.getOrganizador().equals(nUsuario)) {
+			if (e.getOrganizador().equals(nUsuario)) {
 				cbEventos.addItem(e);
 			}
 		}
 	}
-	
+
 	public void actualizarListaEventosParticipo(String nUsuario) {
 		ConexionConBaseDeDatos accesoBD;
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
@@ -241,7 +236,7 @@ public class InterfazListaEventos extends JPanel {
 
 		cbEventos.removeAllItems();
 		for (Evento e : eventos) {
-			if(e.getParticipantes().contains(nUsuario)) {
+			if (e.getParticipantes().contains(nUsuario)) {
 				cbEventos.addItem(e);
 			}
 		}
@@ -251,17 +246,15 @@ public class InterfazListaEventos extends JPanel {
 		ConexionConBaseDeDatos accesoBD;
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
 		participantes = accesoBD.listaParticipantesDeUnEvento(idEv);
-		
+
 		lmParticipantesEventoSeleccionado.removeAllElements();
-		
+
 		for (String s : participantes) {
 			lmParticipantesEventoSeleccionado.addElement(s);
 		}
-		
+
 	}
-	
-	
-	
+
 	public void controladorEliminarEvento(CntrlEliminarEvento c) {
 		btEliminarEvento.addActionListener(c);
 	}
@@ -277,13 +270,13 @@ public class InterfazListaEventos extends JPanel {
 	public void controladorExpulsarParticipante(CntrlExpulsarParticipantes c) {
 		btExpulsarParticipante.addActionListener(c);
 	}
-	
+
 	public void controladorActualizar(CntrlActualizar c) {
 		btActualizar.addActionListener(c);
 	}
-	
-	public List<String> getParticipantesSeleccionados(){
+
+	public List<String> getParticipantesSeleccionados() {
 		return lstParticipantesEventoSeleccionado.getSelectedValuesList();
 	}
-	
+
 }

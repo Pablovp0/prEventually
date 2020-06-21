@@ -1,11 +1,11 @@
 package prEventually;
 
 public class Participación {
-	
+
 	int idEv;
 	String nU;
 	int id;
-	
+
 	public Participación(int i, int idEvento, String u) {
 		id = i;
 		idEv = idEvento;
@@ -35,7 +35,5 @@ public class Participación {
 	public void setnU(String nU) {
 		this.nU = nU;
 	}
-	
-	
-	
+
 }

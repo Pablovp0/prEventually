@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import interfaces.InterfazEliminarCuenta;
+import main.Eventually;
 import prEventually.ConexionConBaseDeDatos;
 import prEventually.Sesion;
-import pruebas.PRUEBATOTAL;
 
-public class CntrlEliminarCuenta implements ActionListener{
-	
+public class CntrlEliminarCuenta implements ActionListener {
+
 	ConexionConBaseDeDatos conexionBD;
 	InterfazEliminarCuenta iEcPanel;
 
@@ -24,27 +24,24 @@ public class CntrlEliminarCuenta implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		Sesion s = CntrlInicioSesion.getSesion();
 		String contrasenaEscrita = iEcPanel.getContra().getText();
 		JPanel cardParent = (JPanel) iEcPanel.getParent();
-		
-		if(contrasenaEscrita.equals(s.getContraseña())) {
-			
+
+		if (contrasenaEscrita.equals(s.getContraseña())) {
+
 			conexionBD.eliminarCuenta(s.getNusuario());
 			CardLayout ccl = (CardLayout) (cardParent.getLayout());
-			ccl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
-			PRUEBATOTAL.setVentanaTamaño(PRUEBATOTAL.logo.getWidth(), PRUEBATOTAL.logo.getHeight() + 250); //350, 150 -> 713, 700
-			
-			
+			ccl.show(cardParent, Eventually.PANELINICIOSESION);
+			Eventually.setVentanaTamaño(Eventually.logo.getWidth(), Eventually.logo.getHeight() + 250); // 350, 150 ->
+																										// 713, 700
+
 		} else {
-			JOptionPane.showMessageDialog(cardParent,
-	        	    "Contrasena incorrecta",
-	        	    "Error",
-	        	    JOptionPane.ERROR_MESSAGE);
-			
+			JOptionPane.showMessageDialog(cardParent, "Contrasena incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+
 		}
-		
+
 	}
-	
+
 }

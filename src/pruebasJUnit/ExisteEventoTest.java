@@ -1,6 +1,6 @@
 package pruebasJUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ class ExisteEventoTest {
 		boolean res = accesoBD.existeEvento("Barrilada fin de exámenes");
 		assertEquals(true, res);
 	}
-	
+
 	@Test
 	public void TestNoExisteEvento() {
 		ConexionConBaseDeDatos accesoBD;

@@ -12,12 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controladores.CntrlCrearEvento;
-import pruebas.PRUEBATOTAL;
+import main.Eventually;
 
-public class InterfazCrearEvento extends JPanel{
-	
+public class InterfazCrearEvento extends JPanel {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private JButton bCrear;
 	private JButton bVolver;
 	private JTextField tfNombre;
@@ -26,7 +26,6 @@ public class InterfazCrearEvento extends JPanel{
 	private TextPrompt phNombre;
 	private TextPrompt phFecha;
 	private TextPrompt phLugar;
-	
 
 	public InterfazCrearEvento() {
 
@@ -60,24 +59,23 @@ public class InterfazCrearEvento extends JPanel{
 		campos.add(tfFecha);
 		campos.add(tfLugar);
 
-
 		add(botones, BorderLayout.SOUTH);
 		add(campos, BorderLayout.CENTER);
-		
+
 		bVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tfNombre.setText(null);
 				tfFecha.setText(null);
 				tfLugar.setText(null);
-				
+
 				JPanel cardParent = (JPanel) InterfazCrearEvento.this.getParent();
 				CardLayout ccl = (CardLayout) (cardParent.getLayout());
-				ccl.show(cardParent, PRUEBATOTAL.PANELPRINCIPAL);
-				PRUEBATOTAL.setVentanaTamaño(800, 600);
+				ccl.show(cardParent, Eventually.PANELPRINCIPAL);
+				Eventually.setVentanaTamaño(980, 600);
 			}
 		});
-		
+
 	}
 
 	public JTextField getNombre() {
@@ -87,14 +85,13 @@ public class InterfazCrearEvento extends JPanel{
 	public JTextField getFecha() {
 		return tfFecha;
 	}
-	
+
 	public JTextField getLugar() {
 		return tfLugar;
 	}
-	
-	
-	public void controladorCrear (CntrlCrearEvento c) {
+
+	public void controladorCrear(CntrlCrearEvento c) {
 		bCrear.addActionListener(c);
 	}
-	
+
 }
