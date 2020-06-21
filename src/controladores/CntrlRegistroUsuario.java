@@ -62,6 +62,7 @@ import pruebas.PRUEBATOTAL;
 			nuPanel.getUser().setText(null);
 			nuPanel.getMail().setText(null);
 			nuPanel.getPassword().setText(null);
+			nuPanel.getPassword2().setText(null);
 			CardLayout ccl = (CardLayout) (cardParent.getLayout());
 			ccl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
 		}

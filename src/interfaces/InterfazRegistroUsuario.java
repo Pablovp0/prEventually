@@ -88,6 +88,7 @@ public class InterfazRegistroUsuario extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				tfUser.setText(null);
 				tfPassword.setText(null);
+				tfPassword2.setText(null);
 				tfMail.setText(null);
 				
 				JPanel cardParent = (JPanel) InterfazRegistroUsuario.this.getParent();

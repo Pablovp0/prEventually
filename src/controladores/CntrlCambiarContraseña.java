@@ -36,7 +36,13 @@ public class CntrlCambiarContraseña implements ActionListener{
 	        	    "Error",
 	        	    JOptionPane.ERROR_MESSAGE);
 			
-		} else {
+		}else if(contrasenaNueva.equals(contrasenaAntigua)) {
+			JOptionPane.showMessageDialog(cardParent,
+	        	    "La nueva contraseña coincide con la antigua",
+	        	    "Error",
+	        	    JOptionPane.ERROR_MESSAGE);
+		}
+		else {
 			
 			conexionBD.actualizarContraseña(s.getNusuario(), contrasenaNueva);
 			JOptionPane.showMessageDialog(cardParent,

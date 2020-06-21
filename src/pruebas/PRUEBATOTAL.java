@@ -44,7 +44,7 @@ public class PRUEBATOTAL {
 		
 		
 		try {			// Si se lanza la excepcion la app no se inicia
-			logo = ImageIO.read(new File("src/recursos/imagenPrueba.jpg"));
+			logo = ImageIO.read(new File("src/recursos/eventually_logo.png"));
 		}catch(IOException e) {
 			System.out.println(e);
 		}

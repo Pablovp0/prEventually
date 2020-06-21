@@ -34,6 +34,7 @@ public class CntrlEliminarCuenta implements ActionListener{
 			conexionBD.eliminarCuenta(s.getNusuario());
 			CardLayout ccl = (CardLayout) (cardParent.getLayout());
 			ccl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
+			PRUEBATOTAL.setVentanaTamaño(PRUEBATOTAL.logo.getWidth(), PRUEBATOTAL.logo.getHeight() + 250); //350, 150 -> 713, 700
 			
 			
 		} else {
