@@ -10,7 +10,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -21,7 +24,8 @@ public class InterfazRegistroUsuario extends JPanel{
 	
 	public static String BT_NEW_USER_ACCION_COMMAND = "BT_NEW_USER_ACCION_COMMAND";
 	public static String BT_VOLVER_REGISTRO_ACCION_COMMAND = "BT_VOLVER_REGISTRO_ACCION_COMMAND";
-	
+		
+	private JLabel labelLogo;
 	private JButton bRegistro;
 	private JButton bVolver;
 	private JTextField tfUser;
@@ -35,12 +39,14 @@ public class InterfazRegistroUsuario extends JPanel{
 	
 	public InterfazRegistroUsuario() {
 		
-		bRegistro = new JButton("Registrarse.");
-		bVolver = new JButton("Volver.");
+		bRegistro = new JButton("Registrarse");
+		bVolver = new JButton("Volver");
 		tfUser = new JTextField(20);
 		tfPassword = new JPasswordField(20);
 		tfPassword2 = new JPasswordField(20);
 		tfMail = new JTextField(20);
+
+		labelLogo = new JLabel(new ImageIcon(PRUEBATOTAL.logo));
 		
 		placeholderUser = new TextPrompt("Usuario", tfUser);
 		placeholderPassword = new TextPrompt("Contraseña", tfPassword);
@@ -58,6 +64,8 @@ public class InterfazRegistroUsuario extends JPanel{
 		
 		setLayout(new BorderLayout());
 		
+		
+		
 		JPanel botones = new JPanel();
 
 		botones.setLayout(new GridLayout(1, 2));
@@ -71,7 +79,7 @@ public class InterfazRegistroUsuario extends JPanel{
 		campos.add(tfPassword2);
 		campos.add(tfMail);
 		
-		
+		add(labelLogo, BorderLayout.NORTH);
 		add(botones, BorderLayout.SOUTH);
 		add(campos, BorderLayout.CENTER);
 		
@@ -106,7 +114,6 @@ public class InterfazRegistroUsuario extends JPanel{
 	public JTextField getMail() {
 		return tfMail;
 	}
-	
 	
 	public void controlador(CntrlRegistroUsuario c) {
 		bRegistro.addActionListener(c);

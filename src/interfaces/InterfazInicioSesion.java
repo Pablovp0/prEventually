@@ -7,7 +7,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -21,6 +23,7 @@ public class InterfazInicioSesion extends JPanel {
 
 	public static String BT_INICIAR_SESION_ACCION_COMMAND = "BT_INICIAR_SESION_ACCION_COMMAND";
 
+	private JLabel labelLogo;
 	private JButton bCrearCuenta;
 	private JButton bLogin;
 	private JTextField tfUser;
@@ -34,7 +37,10 @@ public class InterfazInicioSesion extends JPanel {
 		bLogin = new JButton("Iniciar sesión.");
 		tfUser = new JTextField(20);
 		tfPassword = new JPasswordField(20);
-
+		
+		labelLogo = new JLabel(new ImageIcon(PRUEBATOTAL.logo));
+		
+		
 		placeholderUser = new TextPrompt("Usuario", tfUser);
 		placeholderPassword = new TextPrompt("Contraseña", tfPassword);
 		placeholderUser.changeAlpha(0.75f);
@@ -55,6 +61,7 @@ public class InterfazInicioSesion extends JPanel {
 		campos.add(tfUser);
 		campos.add(tfPassword);
 
+		add(labelLogo, BorderLayout.NORTH);
 		add(botones, BorderLayout.SOUTH);
 		add(campos, BorderLayout.CENTER);
 

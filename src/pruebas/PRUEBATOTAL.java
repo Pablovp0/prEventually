@@ -1,7 +1,13 @@
 package pruebas;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -29,11 +35,20 @@ public class PRUEBATOTAL {
 	public final static String PANELLISTAEVENTOS = "INTERFAZ LISTA EVENTOS";
 	public final static String PANELCAMBIARCONTRASEÑA = "INTERFAZ CAMBIAR CONTRASEÑA";
 	public static JFrame ventana;
+	public static BufferedImage logo;
 	
 	public static void main(String[] args) {
 		
 		ConexionConBaseDeDatos accesoBD;
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
+		
+		
+		try {			// Si se lanza la excepcion la app no se inicia
+			logo = ImageIO.read(new File("src/recursos/imagenPrueba.jpg"));
+		}catch(IOException e) {
+			System.out.println(e);
+		}
+		
 		
 		InterfazRegistroUsuario i = new InterfazRegistroUsuario();
 		InterfazInicioSesion in = new InterfazInicioSesion();
@@ -59,7 +74,7 @@ public class PRUEBATOTAL {
 		ventana.setContentPane(cards);
 		ventana.pack();
 		ventana.setVisible(true);
-		ventana.setSize(350, 150);
+		ventana.setSize(logo.getWidth(), logo.getHeight() + 250); // 350, 150
 		
 	
 		CntrlRegistroUsuario cReg = new CntrlRegistroUsuario(accesoBD, i);

@@ -104,7 +104,7 @@ public class InterfazPrincipal extends JPanel {
 				JPanel cardParent = (JPanel) InterfazPrincipal.this.getParent();
 				CardLayout cl = (CardLayout)(cardParent.getLayout());
 		        cl.show(cardParent, PRUEBATOTAL.PANELINICIOSESION);
-		        PRUEBATOTAL.setVentanaTamaño(350, 150);
+		        PRUEBATOTAL.setVentanaTamaño(PRUEBATOTAL.logo.getWidth(), PRUEBATOTAL.logo.getHeight() + 250); //350, 150 -> 713, 700
 			}
 		});
 		
