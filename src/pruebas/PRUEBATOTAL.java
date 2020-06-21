@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import controladores.CntrlActualizar;
-import controladores.CntrlBotonCrearEvento;
 import controladores.CntrlCambiarContraseña;
 import controladores.CntrlCancelarParticipacion;
 import controladores.CntrlCrearEvento;
@@ -34,6 +33,7 @@ public class PRUEBATOTAL {
 	public final static String PANELCREAREVENTO = "INTERFAZ CREAR EVENTO";
 	public final static String PANELLISTAEVENTOS = "INTERFAZ LISTA EVENTOS";
 	public final static String PANELCAMBIARCONTRASEÑA = "INTERFAZ CAMBIAR CONTRASEÑA";
+	public final static String PANELMODIFICAREVENTO = "INTERFAZ MODIFICAR EVENTO";
 	public static JFrame ventana;
 	public static BufferedImage logo;
 	
@@ -41,7 +41,7 @@ public class PRUEBATOTAL {
 		
 		ConexionConBaseDeDatos accesoBD;
 		accesoBD = ConexionBaseDeDatosJDBC.getInstance();
-		
+		logo =  new BufferedImage(400, 4, BufferedImage.TYPE_INT_ARGB);
 		
 		try {			// Si se lanza la excepcion la app no se inicia
 			logo = ImageIO.read(new File("src/recursos/eventually_logo.png"));
@@ -52,11 +52,11 @@ public class PRUEBATOTAL {
 		
 		InterfazRegistroUsuario i = new InterfazRegistroUsuario();
 		InterfazInicioSesion in = new InterfazInicioSesion();
-		InterfazPrincipal ip = new InterfazPrincipal();
 		InterfazEliminarCuenta iec = new InterfazEliminarCuenta();
 		InterfazCrearEvento ice = new InterfazCrearEvento();
 		InterfazCambiarContraseña icc = new InterfazCambiarContraseña();
-		
+		InterfazModificarEvento ime = new InterfazModificarEvento();
+		InterfazPrincipal ip = new InterfazPrincipal(ime);
 		
 		JPanel cards = new JPanel();
         //Create the panel that contains the "cards".
@@ -67,6 +67,7 @@ public class PRUEBATOTAL {
         cards.add(iec, PANELELIMINARCUENTA);
         cards.add(ice, PANELCREAREVENTO);
         cards.add(icc, PANELCAMBIARCONTRASEÑA);
+        cards.add(ime, PANELMODIFICAREVENTO);
 		ventana = new JFrame("Eventually");
 
 
@@ -78,9 +79,8 @@ public class PRUEBATOTAL {
 		
 	
 		CntrlRegistroUsuario cReg = new CntrlRegistroUsuario(accesoBD, i);
-		CntrlInicioSesion cIni = new CntrlInicioSesion(accesoBD, in);
+		CntrlInicioSesion cIni = new CntrlInicioSesion(accesoBD, in, ip);
 		CntrlEliminarCuenta cEc = new CntrlEliminarCuenta(accesoBD, iec);
-		CntrlBotonCrearEvento cBce = new CntrlBotonCrearEvento(ip);
 		CntrlCrearEvento cCe = new CntrlCrearEvento(accesoBD, ice, ip);
 		CntrlEliminarEvento cEe	 = new CntrlEliminarEvento(accesoBD, ip);
 		CntrlParticiparEvento cPe = new CntrlParticiparEvento(accesoBD, ip);
@@ -89,7 +89,6 @@ public class PRUEBATOTAL {
 		CntrlCambiarContraseña cCc = new CntrlCambiarContraseña(accesoBD, icc);
 		CntrlActualizar cA = new CntrlActualizar(accesoBD, ip);
 		ice.controladorCrear(cCe);
-		ip.controladorBotonCrearEvento(cBce);
 		i.controlador(cReg);
 		in.controlador(cIni);
 		iec.controlador(cEc);

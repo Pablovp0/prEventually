@@ -2,11 +2,13 @@ package interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -15,7 +17,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 
 import controladores.CntrlActualizar;
-import controladores.CntrlBotonCrearEvento;
+import controladores.CntrlInicioSesion;
 import prEventually.*;
 import pruebas.PRUEBATOTAL;
 
@@ -27,24 +29,24 @@ public class InterfazPrincipal extends JPanel {
 	private JButton bEliminar = new JButton("Eliminar cuenta");
 	private JButton bCerrarSesion = new JButton("Cerrar sesion");
 	private JButton bCambiarContraseña = new JButton("Cambiar contraseña");
-	private JLabel lbU = new JLabel("Usuario:");
+	private JLabel lbU = new JLabel("Usuario:  ");
 	private JLabel lbUsuario = new JLabel("");
-	private JLabel lbM = new JLabel("Email:");
+	private JLabel lbM = new JLabel("Email:  ");
 	private JLabel lbMail = new JLabel("");
-	private JPanel panelEvento = new JPanel();
 	private JPanel panelPerfil = new JPanel();
+	private JPanel panelInfoUsuario = new JPanel();
+	private JPanel panelBotonesPerfil = new JPanel();
 	private InterfazListaEventos panelListaEventos;
+	private JLabel labelLogo = new JLabel(new ImageIcon(PRUEBATOTAL.logo));
+	private InterfazModificarEvento ime;
 	
-	
-	
-	public InterfazPrincipal() {
+	public InterfazPrincipal(InterfazModificarEvento i) {
+		ime = i;
+		
 		JTabbedPane tabbedPane = new JTabbedPane();
 		
 		JComponent panel0 = crearPanelListaEventos();
 		tabbedPane.addTab("Lista de eventos", null, panel0, "Vea la lista de eventos disponibles.");
-		
-		JComponent panel1 = crearPanelEvento();
-		tabbedPane.addTab("Eventos", null, panel1, ".");
 
 		JComponent panel2 = crearPanelPerfil();
 		tabbedPane.addTab("Perfil Usuario", null, panel2, "Cierre su sesión y elimine su cuenta.");
@@ -53,14 +55,6 @@ public class InterfazPrincipal extends JPanel {
 		add(tabbedPane);
 	}
 
-	public JPanel crearPanelEvento() {
-
-		setLayout(new BorderLayout());
-		panelEvento.add(bCrearEvento);
-		return panelEvento;
-		
-		
-	}
 	
 	public JPanel crearPanelListaEventos() {
 		
@@ -82,21 +76,42 @@ public class InterfazPrincipal extends JPanel {
 			}
 		});
 		
+		panelListaEventos.getBtModificarEvento().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Evento ev = (Evento) (getPanelListaEventos().getcbEventos().getSelectedItem());
+		        String nombreEvento = ev.getNombre();
+		        ime.getNombre().setText("Vas a modificar el Evento: " + nombreEvento);
+				JPanel cardParent = (JPanel) InterfazPrincipal.this.getParent();
+				CardLayout cl = (CardLayout)(cardParent.getLayout());
+		        cl.show(cardParent, PRUEBATOTAL.PANELMODIFICAREVENTO);
+		        PRUEBATOTAL.setVentanaTamaño(350, 150);
+		        
+			}
+		});
+		
 		
 		return panelListaEventos;
 	}
 
 	public JPanel crearPanelPerfil() {
 
-		
 		setLayout(new BorderLayout());
 		
-		panelPerfil.add(bEliminar);
+		panelInfoUsuario.setLayout(new GridLayout(2,2));
+		panelInfoUsuario.add(lbU);
+		panelInfoUsuario.add(lbUsuario);
+		panelInfoUsuario.add(lbM);
+		panelInfoUsuario.add(lbMail);
+		panelPerfil.add(panelInfoUsuario,BorderLayout.NORTH);
 		
-		panelPerfil.add(bCerrarSesion);
+		panelBotonesPerfil.setLayout(new GridLayout(3,1));
+		panelBotonesPerfil.add(bEliminar);
+		panelBotonesPerfil.add(bCerrarSesion);
+		panelBotonesPerfil.add(bCambiarContraseña);
+		panelPerfil.add(panelBotonesPerfil,BorderLayout.SOUTH);
 		
-		panelPerfil.add(bCambiarContraseña);
-		
+		panelPerfil.add(labelLogo, BorderLayout.NORTH);
 		
 		bCerrarSesion.addActionListener(new ActionListener() {
 			@Override
@@ -128,12 +143,15 @@ public class InterfazPrincipal extends JPanel {
 			}
 		});
 		
-		
 		return panelPerfil;
 	}
 	
-	public void controladorBotonCrearEvento (CntrlBotonCrearEvento c) {
-		bCrearEvento.addActionListener(c);
+	public JLabel getLbNUsuario() {
+		return lbUsuario;
+	}
+	
+	public JLabel getLbMail() {
+		return lbMail;
 	}
 	
 	public InterfazListaEventos getPanelListaEventos() {

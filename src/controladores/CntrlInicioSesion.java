@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import interfaces.InterfazInicioSesion;
+import interfaces.InterfazPrincipal;
 import prEventually.ConexionConBaseDeDatos;
 import prEventually.Sesion;
 import pruebas.PRUEBATOTAL;
@@ -16,11 +17,13 @@ public class CntrlInicioSesion implements ActionListener {
 
 	ConexionConBaseDeDatos conexionBD;
 	InterfazInicioSesion iniPanel;
+	InterfazPrincipal ip;
 	static Sesion s;
 
-	public CntrlInicioSesion(ConexionConBaseDeDatos connbd, InterfazInicioSesion ini) {
+	public CntrlInicioSesion(ConexionConBaseDeDatos connbd, InterfazInicioSesion ini, InterfazPrincipal i) {
 		conexionBD = connbd;
 		iniPanel = ini;
+		ip = i;
 	}
 
 	public void popUpError(JPanel parent, String err) {
@@ -52,7 +55,10 @@ public class CntrlInicioSesion implements ActionListener {
 				iniPanel.getUsuario().setText(null);
 				iniPanel.getContra().setText(null);
 				
-				PRUEBATOTAL.setVentanaTamaño(800, 600);
+				PRUEBATOTAL.setVentanaTamaño(980, 600);
+				
+				ip.getLbNUsuario().setText(s.getNusuario());
+				ip.getLbMail().setText(conexionBD.getMailUsuario(s.getNusuario()));
 				
 		} else {
 			popUpError(cardParent, "Usuario o contrasena incorrectos");

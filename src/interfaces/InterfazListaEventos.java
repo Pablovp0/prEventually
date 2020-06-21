@@ -48,6 +48,7 @@ public class InterfazListaEventos extends JPanel {
 	private JButton btEliminarEvento;
 	private JButton btExpulsarParticipante;
 	private JButton btCrearEvento;
+	private JButton btModificarEvento;
 	private JPanel pnBotones;
 
 	private JLabel lbFecha;
@@ -66,7 +67,7 @@ public class InterfazListaEventos extends JPanel {
 		
 		// panel de seleccion de eventos
 		lbSlcEvento = new JLabel("Selecciona Evento");
-		btActualizar = new JButton("Actualizar");
+		btActualizar = new JButton("ACTUALIZAR");
 		chbOrganizo = new JCheckBox("Eventos que organizo");
 		chbParticipo = new JCheckBox("Eventos en los que participo");
 		cbEventos = new JComboBox<Evento>();
@@ -118,16 +119,18 @@ public class InterfazListaEventos extends JPanel {
 
 		// panel de botones
 		pnBotones = new JPanel();
-		this.btParticipar = new JButton("PARTICIPAR EVENTO");
+		this.btParticipar = new JButton("PARTICIPAR");
 		this.btCancelarParticipacion = new JButton("CANCELAR PARTICIPACION");
 		this.btEliminarEvento = new JButton("ELIMINAR EVENTO");
 		this.btExpulsarParticipante = new JButton("EXPULSAR PARTICIPANTE");
 		this.btCrearEvento = new JButton("CREAR EVENTO");
+		this.btModificarEvento = new JButton("MODIFICAR EVENTO");
 		pnBotones.add(btParticipar);
 		pnBotones.add(btCancelarParticipacion);
 		pnBotones.add(btEliminarEvento);
 		pnBotones.add(btExpulsarParticipante);
 		pnBotones.add(btCrearEvento);
+		pnBotones.add(btModificarEvento);
 		
 		add(pnBotones);
 		
@@ -148,6 +151,16 @@ public class InterfazListaEventos extends JPanel {
 				  }
 			   }
 			});
+		
+//		btModificarEvento.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				JPanel cardParent = (JPanel) InterfazListaEventos.this.getParent();
+//				CardLayout cl = (CardLayout)(cardParent.getLayout());
+//		        cl.show(cardParent, PRUEBATOTAL.PANELMODIFICAREVENTO);
+//		        PRUEBATOTAL.setVentanaTamaño(350, 150);
+//			}
+//		});
 		
 //		btCrearEvento.addActionListener(new ActionListener() {
 //			   @Override
@@ -188,6 +201,10 @@ public class InterfazListaEventos extends JPanel {
 	
 	public JButton getBtCrearEvento() {
 		return btCrearEvento;
+	}
+	
+	public JButton getBtModificarEvento() {
+		return btModificarEvento;
 	}
 
 	public void actualizarListaEventos() {
@@ -243,6 +260,8 @@ public class InterfazListaEventos extends JPanel {
 		
 	}
 	
+	
+	
 	public void controladorEliminarEvento(CntrlEliminarEvento c) {
 		btEliminarEvento.addActionListener(c);
 	}
@@ -266,4 +285,5 @@ public class InterfazListaEventos extends JPanel {
 	public List<String> getParticipantesSeleccionados(){
 		return lstParticipantesEventoSeleccionado.getSelectedValuesList();
 	}
+	
 }
